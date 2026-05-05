@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hobbi — Try something new.</title>
+<title>Hobbi — The place to try something new.</title>
 <meta name="description" content="Hobbi connects young people with local studios — pottery, dance, art and more at prices that actually make sense.">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700;1,9..144,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#FAF7F2;--terra:#C05228;--terra-lt:#F5DDD4;--terra-dk:#8C3912;
-  --butter:#F2E2A2;--butter-dk:#E8CE72;
-  --sage:#6B9E6E;
-  --ink:#1A1410;--mid:#7A6A58;--mute:#B0A090;
+  --bg:#F2D5C8;
+  --bg2:#EAC9B8;
+  --paper:#FAF7F2;
+  --terra:#C05228;--terra-dk:#8C3912;
+  --ink:#1A1410;--mid:#6B5444;--mute:#A08070;
+  --sage:#5A8860;
   --f:'Fraunces',Georgia,serif;--n:'DM Sans',sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
+  /* type scale — 8px base, strict multiples */
+  --t1:88px;--t2:56px;--t3:40px;--t4:24px;--t5:16px;--t6:13px;--t7:11px;--t8:10px;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--n);background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -22,341 +26,255 @@ body{font-family:var(--n);background:var(--bg);color:var(--ink);overflow-x:hidde
 /* ── SHARED ── */
 .logo{font-family:var(--f);font-size:22px;font-weight:900;font-style:italic;letter-spacing:-1px;color:var(--ink);display:inline-flex;align-items:flex-end;gap:1px;text-decoration:none;transition:opacity .2s}
 .logo:hover{opacity:.7}
-.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--terra);margin-bottom:3px;flex-shrink:0;display:inline-block}
-.sec-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mute);margin-bottom:18px;display:block}
-.sec-h{font-family:var(--f);font-size:clamp(38px,4.2vw,54px);font-weight:900;letter-spacing:-2.5px;line-height:.95;color:var(--ink)}
+.logo .dot{width:8px;height:8px;border-radius:50%;background:var(--terra);margin-bottom:3px;display:inline-block;flex-shrink:0}
+.eyebrow{font-size:var(--t8);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:16px}
+.sec-h{font-family:var(--f);font-size:var(--t2);font-weight:900;letter-spacing:-2.5px;line-height:.95;color:var(--ink)}
 .sec-h em{font-style:italic;color:var(--terra)}
-.btn-main{background:var(--terra);color:white;font-family:var(--n);font-size:13px;font-weight:700;padding:14px 30px;border-radius:100px;text-decoration:none;display:inline-block;transition:transform .2s var(--ease),box-shadow .2s var(--ease),opacity .2s}
-.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,82,40,.3)}
-.btn-main:active{transform:translateY(0)}
-.btn-sub{background:transparent;color:var(--mid);font-family:var(--n);font-size:13px;font-weight:500;padding:13px 24px;border-radius:100px;text-decoration:none;display:inline-block;border:1px solid rgba(26,20,16,.15);transition:all .2s var(--ease)}
-.btn-sub:hover{color:var(--ink);border-color:rgba(26,20,16,.35);transform:translateY(-2px)}
-@keyframes breathe{0%,100%{opacity:1}50%{opacity:.2}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.body-l{font-size:var(--t5);line-height:1.8;color:var(--mid);font-weight:300}
+.body-s{font-size:var(--t6);line-height:1.72;color:var(--mid);font-weight:400}
+.btn-fill{background:var(--terra);color:white;font-family:var(--n);font-size:var(--t6);font-weight:700;padding:14px 32px;border-radius:100px;text-decoration:none;display:inline-block;transition:transform .2s var(--ease),box-shadow .2s var(--ease),opacity .15s;letter-spacing:.2px}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(192,82,40,.28)}
+.btn-fill:active{transform:translateY(0);box-shadow:none}
+.btn-ghost{background:rgba(26,20,16,.06);color:var(--ink);font-family:var(--n);font-size:var(--t6);font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;display:inline-block;border:1px solid rgba(26,20,16,.14);transition:all .2s var(--ease)}
+.btn-ghost:hover{background:rgba(26,20,16,.11);transform:translateY(-2px)}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* scroll reveal */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
 
 /* ── NAV ── */
 nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:20px 56px;border-bottom:1px solid rgba(26,20,16,.07);
-  background:rgba(250,247,242,.92);backdrop-filter:blur(16px);
+  padding:20px 56px;
+  background:rgba(242,213,200,.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(26,20,16,.08);
   position:sticky;top:0;z-index:100;
 }
 .nav-links{display:flex;gap:36px}
-.nl{font-size:13px;color:var(--mute);text-decoration:none;font-weight:400;transition:color .15s;position:relative}
-.nl::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--terra);transform:scaleX(0);transition:transform .2s var(--ease);transform-origin:left}
+.nl{font-size:var(--t6);color:var(--mid);text-decoration:none;font-weight:400;position:relative;transition:color .15s}
+.nl::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--terra);transform:scaleX(0);transition:transform .25s var(--ease);transform-origin:left}
 .nl:hover{color:var(--ink)}.nl:hover::after{transform:scaleX(1)}
-.nav-btn{background:var(--ink);color:var(--bg);font-family:var(--n);font-size:12px;font-weight:700;padding:11px 24px;border-radius:100px;text-decoration:none;transition:all .2s var(--ease);letter-spacing:.2px}
-.nav-btn:hover{background:var(--terra);transform:translateY(-1px)}
+.nav-cta{background:var(--ink);color:var(--bg);font-family:var(--n);font-size:var(--t7);font-weight:700;padding:11px 24px;border-radius:100px;text-decoration:none;letter-spacing:.3px;transition:all .2s var(--ease)}
+.nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
 
 /* ── HERO ── */
-.hero{
-  height:90vh;min-height:580px;
-  background:var(--bg);border-bottom:1px solid rgba(26,20,16,.07);
-  display:grid;grid-template-rows:1fr auto;
-  position:relative;overflow:hidden;
-}
-.ring{position:absolute;top:50%;left:50%;border-radius:50%;pointer-events:none;transform:translate(-50%,-56%)}
-.ring1{width:500px;height:500px;border:1px solid rgba(26,20,16,.06)}
-.ring2{width:320px;height:320px;border:1px solid rgba(26,20,16,.04)}
-#orbit{position:absolute;top:50%;left:50%;width:0;height:0;transform:translate(0,-6%)}
+.hero{position:relative;overflow:hidden;display:flex;flex-direction:column}
+.hero-main{flex:1;position:relative}
+.ring{position:absolute;border-radius:50%;pointer-events:none}
+#orbit{position:absolute;width:0;height:0}
 .otag{
-  position:absolute;font-family:var(--f);font-style:italic;font-size:13px;font-weight:400;
+  position:absolute;font-family:var(--f);font-style:italic;font-size:14px;font-weight:400;
   color:var(--mid);background:var(--bg);padding:8px 20px;border-radius:100px;
-  border:1px solid rgba(26,20,16,.1);white-space:nowrap;cursor:pointer;
-  transition:background .25s,color .25s,border-color .25s,transform .25s var(--ease),box-shadow .25s;
-  user-select:none;
+  border:1px solid rgba(26,20,16,.14);white-space:nowrap;cursor:pointer;user-select:none;
+  transition:background .22s,color .22s,border-color .22s,box-shadow .22s;
 }
-.otag:hover,.otag.on{
-  background:var(--terra);color:white;border-color:var(--terra);
-  transform:translate(-50%,-50%) scale(1.08);
-  box-shadow:0 6px 20px rgba(192,82,40,.25);font-weight:700;
+.otag:hover,.otag.on{background:var(--ink);color:var(--bg);border-color:var(--ink);box-shadow:0 4px 16px rgba(26,20,16,.15);font-weight:700}
+#hero-center{
+  position:absolute;display:flex;flex-direction:column;align-items:center;text-align:center;z-index:2;
 }
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:var(--t8);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mute);margin-bottom:24px;animation:fadeUp .8s var(--ease) both}
+.kdot{width:5px;height:5px;border-radius:50%;background:var(--terra);animation:breathe 2s ease-in-out infinite}
+#headline{font-family:var(--f);font-weight:900;line-height:.92;letter-spacing:-4px;color:var(--ink);margin-bottom:16px;animation:fadeUp .8s var(--ease) .12s both}
+#headline em{font-style:italic;color:var(--terra)}
+#hero-sub{font-family:var(--f);font-style:italic;font-weight:300;color:var(--mute);margin-bottom:32px;letter-spacing:-.3px;min-height:24px;transition:all .3s var(--ease);animation:fadeUp .8s var(--ease) .22s both;font-size:18px}
+#hero-sub em{color:var(--ink);font-weight:700;font-style:italic}
+.hero-btns{display:flex;gap:10px;align-items:center;justify-content:center;animation:fadeUp .8s var(--ease) .32s both}
 
-.hero-center{
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;text-align:center;
-  position:relative;z-index:2;padding:0 48px;
-  margin-top:-3%;
-}
-.hero-kicker{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:var(--mid);margin-bottom:28px;
-  animation:fadeUp .8s var(--ease) both;
-}
-.kdot{width:6px;height:6px;border-radius:50%;background:var(--terra);animation:breathe 2s ease-in-out infinite;flex-shrink:0}
-.hero-h{
-  font-family:var(--f);
-  font-size:clamp(48px,7vw,88px);
-  font-weight:900;line-height:.9;letter-spacing:-4px;
-  color:var(--ink);margin-bottom:18px;max-width:560px;
-  animation:fadeUp .8s var(--ease) .15s both;
-}
-.hero-h em{font-style:italic;color:var(--terra)}
-.hero-sub{
-  font-family:var(--f);font-style:italic;
-  font-size:clamp(16px,2vw,22px);font-weight:300;
-  color:var(--mute);margin-bottom:36px;letter-spacing:-.3px;
-  min-height:32px;transition:all .35s var(--ease);
-  animation:fadeUp .8s var(--ease) .25s both;
-}
-.hero-sub em{color:var(--terra);font-weight:700}
-.hero-btns{
-  display:flex;gap:12px;align-items:center;justify-content:center;
-  animation:fadeUp .8s var(--ease) .35s both;
-}
+/* stat strip */
+.stat-strip{display:flex;border-top:1px solid rgba(26,20,16,.09);background:var(--bg);position:relative;z-index:3}
+.sc{flex:1;padding:18px 32px;border-right:1px solid rgba(26,20,16,.09);display:flex;align-items:center;gap:10px;transition:background .2s}
+.sc:last-child{border-right:none}
+.sc:hover{background:rgba(26,20,16,.03)}
+.sn{font-family:var(--f);font-size:var(--t4);font-weight:900;letter-spacing:-1px;color:var(--ink);font-style:italic;line-height:1}
+.sdiv{width:1px;height:20px;background:rgba(26,20,16,.14);flex-shrink:0}
+.sl{font-size:var(--t8);font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--mute);line-height:1.4}
 
-/* hero footer stats */
-.hero-foot{display:flex;border-top:1px solid rgba(26,20,16,.07);position:relative;z-index:2;background:var(--bg)}
-.hf-cell{flex:1;padding:20px 32px;border-right:1px solid rgba(26,20,16,.07);display:flex;align-items:center;gap:12px;transition:background .2s}
-.hf-cell:last-child{border-right:none}
-.hf-cell:hover{background:rgba(26,20,16,.02)}
-.hf-n{font-family:var(--f);font-size:26px;font-weight:900;letter-spacing:-1.5px;color:var(--ink);font-style:italic;line-height:1}
-.hf-div{width:1px;height:22px;background:rgba(26,20,16,.1);flex-shrink:0}
-.hf-l{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mute);line-height:1.4}
-
-/* ── HOW IT WORKS ── */
-.how{padding:112px 56px;border-bottom:1px solid rgba(26,20,16,.07);background:var(--terra-lt)}
-.how-inner{display:grid;grid-template-columns:5fr 7fr;gap:96px;align-items:start}
-.how-left{position:sticky;top:112px}
-.how-left .sec-h{margin:12px 0 20px;font-size:clamp(40px,4.5vw,58px)}
-.how-body{font-size:15px;line-height:1.82;color:var(--mid);font-weight:300;max-width:300px}
-.si-dots{display:flex;gap:8px;margin-top:32px}
-.si-dot{width:8px;height:8px;border-radius:50%;background:rgba(26,20,16,.15);cursor:pointer;transition:all .3s var(--ease)}
-.si-dot.on{background:var(--terra);width:24px;border-radius:4px}
-.steps-right{display:flex;flex-direction:column;padding-top:4px}
-.step-card{
-  padding:28px 0;border-bottom:1px solid rgba(26,20,16,.09);
-  cursor:pointer;transition:padding .3s var(--ease);
-  display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start;
-}
-.step-card:first-child{border-top:1px solid rgba(26,20,16,.09)}
-.step-card:hover{padding-left:6px}
-.step-card.on{padding-left:0}
-.step-n-wrap{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(26,20,16,.07);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .3s,transform .3s var(--ease);flex-shrink:0;margin-top:1px;
-}
-.step-card.on .step-n-wrap{background:var(--terra);transform:scale(1.1)}
-.step-n{font-family:var(--f);font-size:15px;font-weight:700;font-style:italic;color:var(--mid);transition:color .3s}
-.step-card.on .step-n{color:white}
-.step-title{font-family:var(--f);font-size:21px;font-weight:700;letter-spacing:-.5px;color:var(--ink);line-height:1.1;transition:color .25s}
-.step-card.on .step-title{color:var(--terra)}
-.step-detail{font-size:14px;line-height:1.72;color:var(--mid);max-height:0;overflow:hidden;transition:max-height .4s var(--ease),margin .4s var(--ease),opacity .3s;margin-top:0;opacity:0}
-.step-card.on .step-detail{max-height:100px;margin-top:12px;opacity:1}
+/* ── HOW ── */
+.how{padding:112px 56px;border-bottom:1px solid rgba(26,20,16,.09);background:var(--bg)}
+.how-grid{display:grid;grid-template-columns:5fr 7fr;gap:88px;align-items:start}
+.how-sticky{position:sticky;top:112px}
+.how-sticky .sec-h{margin:14px 0 20px;font-size:clamp(40px,4.5vw,56px)}
+.si-wrap{display:flex;gap:8px;margin-top:32px}
+.si{height:5px;width:5px;border-radius:3px;background:rgba(26,20,16,.18);cursor:pointer;transition:all .35s var(--ease)}
+.si.on{background:var(--terra);width:24px;border-radius:3px}
+.steps{display:flex;flex-direction:column;border-radius:18px;overflow:hidden;border:1px solid rgba(26,20,16,.1)}
+.step{padding:28px 32px;background:var(--paper);border-bottom:1px solid rgba(26,20,16,.08);cursor:pointer;display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;transition:background .25s var(--ease),padding-left .25s var(--ease)}
+.step:last-child{border-bottom:none}
+.step:hover{background:#FFFAF8;padding-left:38px}
+.step.on{background:white;padding-left:32px}
+.step-bubble{width:36px;height:36px;border-radius:50%;background:rgba(26,20,16,.07);display:flex;align-items:center;justify-content:center;transition:background .3s,transform .3s var(--ease);flex-shrink:0;margin-top:2px}
+.step.on .step-bubble{background:var(--terra);transform:scale(1.08)}
+.step-num{font-family:var(--f);font-size:14px;font-weight:700;font-style:italic;color:var(--mid);transition:color .3s}
+.step.on .step-num{color:white}
+.step-title{font-family:var(--f);font-size:21px;font-weight:700;letter-spacing:-.5px;color:var(--ink);line-height:1.1;transition:color .22s}
+.step.on .step-title{color:var(--terra)}
+.step-body{font-size:var(--t6);line-height:1.72;color:var(--mid);max-height:0;overflow:hidden;transition:max-height .4s var(--ease),margin .4s var(--ease),opacity .3s;opacity:0;margin-top:0}
+.step.on .step-body{max-height:100px;margin-top:10px;opacity:1}
 
 /* ── CLASSES ── */
-.classes{padding:112px 56px;border-bottom:1px solid rgba(26,20,16,.07);background:var(--bg)}
-.classes-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
-.sall{font-size:12px;font-weight:600;color:var(--mute);text-decoration:none;letter-spacing:.5px;transition:color .15s;padding-bottom:2px;border-bottom:1px solid transparent}
-.sall:hover{color:var(--terra);border-bottom-color:var(--terra)}
-/* asymmetric grid — featured + 6 regular */
-.cg{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:rgba(26,20,16,.08);border-radius:18px;overflow:hidden}
-.cc{
-  background:var(--bg);padding:36px 32px;cursor:pointer;
-  transition:background .25s var(--ease);
-  display:flex;flex-direction:column;justify-content:space-between;gap:32px;
-  position:relative;
-}
-.cc:hover{background:rgba(245,221,212,.5)}
+.classes{padding:112px 56px;border-bottom:1px solid rgba(26,20,16,.09);background:var(--bg2)}
+.classes-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
+.classes-top .sec-h{font-size:clamp(40px,4.5vw,56px)}
+.view-all{font-size:var(--t7);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mute);text-decoration:none;transition:color .15s;padding-bottom:2px;border-bottom:1px solid transparent}
+.view-all:hover{color:var(--terra);border-bottom-color:var(--terra)}
+
+/* true editorial grid */
+.cg{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:200px 200px;gap:1px;background:rgba(26,20,16,.1);border-radius:18px;overflow:hidden}
+.cc{background:var(--paper);padding:32px 28px;cursor:pointer;transition:background .25s var(--ease);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.cc::before{content:'→';position:absolute;bottom:28px;right:28px;font-size:18px;color:rgba(26,20,16,.15);transition:all .25s var(--ease);transform:translateX(-4px)}
+.cc:hover::before{color:var(--terra);transform:translateX(0)}
+.cc.on::before{color:rgba(255,255,255,.4);transform:translateX(0)}
+.cc:hover{background:#FFF5F0}
 .cc.on{background:var(--terra)}
-.cc.featured{grid-row:span 2}
-.cc.featured .cc-name{font-size:clamp(24px,3vw,36px);letter-spacing:-1.5px;line-height:1}
-.cc-top{display:flex;flex-direction:column;gap:0}
-.cc-disc{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra);transition:color .2s;margin-bottom:32px;display:block}
+/* grid placements — true asymmetric layout */
+.cc:nth-child(1){grid-column:span 5;grid-row:span 2}
+.cc:nth-child(2){grid-column:span 4}
+.cc:nth-child(3){grid-column:span 3}
+.cc:nth-child(4){grid-column:span 3}
+.cc:nth-child(5){grid-column:span 2}
+.cc:nth-child(6){grid-column:span 2}
+.cc:nth-child(7){grid-column:span 2}
+.cc:nth-child(1) .cc-name{font-size:clamp(26px,3vw,38px);letter-spacing:-1.5px;line-height:1}
+.cc-disc{font-size:var(--t8);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra);display:block;margin-bottom:0;transition:color .2s}
 .cc.on .cc-disc{color:rgba(255,255,255,.5)}
-.cc-name{font-family:var(--f);font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--ink);line-height:1.05;margin-bottom:6px;transition:color .2s}
+.cc-name{font-family:var(--f);font-size:19px;font-weight:700;letter-spacing:-.4px;color:var(--ink);line-height:1.05;margin-bottom:5px;transition:color .2s}
 .cc.on .cc-name{color:white}
-.cc-count{font-size:12px;color:var(--mute);transition:color .2s;font-weight:400}
-.cc.on .cc-count{color:rgba(255,255,255,.4)}
-.cc-saving{
-  display:inline-block;font-size:12px;font-weight:700;
-  color:var(--terra);background:var(--terra-lt);
-  padding:5px 12px;border-radius:100px;
-  opacity:0;transform:translateY(6px);transition:all .25s var(--ease);
-}
-.cc:hover .cc-saving,.cc.on .cc-saving{opacity:1;transform:translateY(0)}
-.cc.on .cc-saving{background:rgba(255,255,255,.15);color:white}
+.cc-count{font-size:var(--t7);color:var(--mute);transition:color .2s;font-weight:500}
+.cc.on .cc-count{color:rgba(255,255,255,.45)}
+.cc-save{display:inline-block;font-size:11px;font-weight:700;color:var(--terra);background:rgba(192,82,40,.1);padding:4px 10px;border-radius:100px;opacity:0;transform:translateY(5px);transition:all .25s var(--ease);margin-top:6px}
+.cc:hover .cc-save,.cc.on .cc-save{opacity:1;transform:translateY(0)}
+.cc.on .cc-save{background:rgba(255,255,255,.15);color:white}
 
 /* ── STUDIOS ── */
-.studios{background:var(--ink);border-bottom:1px solid rgba(255,255,255,.05)}
-.studios-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.05)}
-.stab{
-  flex:1;padding:22px 32px;
-  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:rgba(255,255,255,.22);cursor:pointer;transition:all .25s;
-  text-align:center;border-right:1px solid rgba(255,255,255,.05);
-  position:relative;
-}
+.studios{background:var(--ink)}
+.studios-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06)}
+.stab{flex:1;padding:22px 32px;font-size:var(--t7);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);cursor:pointer;transition:all .25s;text-align:center;border-right:1px solid rgba(255,255,255,.05);position:relative}
 .stab:last-child{border-right:none}
-.stab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--terra);transform:scaleX(0);transition:transform .3s var(--ease)}
-.stab.on{color:var(--butter)}.stab.on::after{transform:scaleX(1)}
-.sp{display:none;padding:88px 56px}
-.sp.on{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.sp.student-on{display:block}
-.st-copy .sec-tag{color:rgba(255,255,255,.2)}
-.st-h{font-family:var(--f);font-size:clamp(38px,4.5vw,56px);font-weight:900;letter-spacing:-2.5px;line-height:.95;color:var(--butter);margin:12px 0 20px}
+.stab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--terra);transform:scaleX(0);transition:transform .35s var(--ease)}
+.stab.on{color:var(--bg)}.stab.on::after{transform:scaleX(1)}
+.sp{display:none}
+.sp.on{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;padding:96px 56px}
+.sp.stu{display:block;padding:96px 56px}
+.st-ey{font-size:var(--t8);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-bottom:16px}
+.st-h{font-family:var(--f);font-size:clamp(36px,4.5vw,54px);font-weight:900;letter-spacing:-2.5px;line-height:.95;color:var(--bg);margin-bottom:20px}
 .st-h em{font-style:italic;color:var(--terra)}
-.st-body{font-size:14px;line-height:1.82;color:rgba(255,255,255,.32);font-weight:300;max-width:340px;margin-bottom:40px}
-.perk-list{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.06);margin-bottom:44px}
-.pk{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:padding .2s}
-.pk:hover{padding-left:4px}
+.st-body{font-size:var(--t5);line-height:1.8;color:rgba(255,255,255,.32);font-weight:300;max-width:360px;margin-bottom:40px}
+.perks{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.07);margin-bottom:44px}
+.pk{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:padding .2s var(--ease)}
+.pk:hover{padding-left:6px}
 .pk-dot{width:4px;height:4px;border-radius:50%;background:var(--terra);flex-shrink:0}
-.pk span{font-size:13px;color:rgba(255,255,255,.42);font-weight:300}
+.pk span{font-size:var(--t6);color:rgba(255,255,255,.42);font-weight:300}
 /* dash */
 .dash{border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden}
-.dash-h{padding:15px 22px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center}
-.dash-hl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.18);font-weight:700}
-.dash-live{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sage)}
-.ld{width:5px;height:5px;border-radius:50%;background:var(--sage);animation:breathe 1.5s ease-in-out infinite}
-.dash-stats{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.06)}
+.dh{padding:15px 22px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center}
+.dhl{font-size:var(--t8);letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.18);font-weight:700}
+.dlive{display:flex;align-items:center;gap:5px;font-size:var(--t8);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sage)}
+.ldot{width:5px;height:5px;border-radius:50%;background:var(--sage);animation:breathe 1.5s ease-in-out infinite}
+.dstats{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.06)}
 .ds{padding:20px 22px;border-right:1px solid rgba(255,255,255,.06)}
 .ds:last-child{border-right:none}
-.ds-v{font-family:var(--f);font-size:30px;font-weight:900;color:var(--butter);letter-spacing:-1.5px;line-height:1}
-.ds-l{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.18);margin-top:5px}
-.ds-bar{height:2px;background:rgba(255,255,255,.05);margin-top:12px;border-radius:2px;overflow:hidden}
-.ds-fill{height:100%;border-radius:2px}
-.bk{display:flex;align-items:center;gap:12px;padding:13px 22px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s;cursor:default}
+.dsv{font-family:var(--f);font-size:var(--t3);font-weight:900;color:var(--bg);letter-spacing:-1.5px;line-height:1}
+.dsl{font-size:var(--t8);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.18);margin-top:5px}
+.dbar{height:2px;background:rgba(255,255,255,.05);margin-top:12px;border-radius:2px;overflow:hidden}
+.dbf{height:100%;border-radius:2px}
+.bk{display:flex;align-items:center;gap:12px;padding:13px 22px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
 .bk:hover{background:rgba(255,255,255,.02)}
 .bk:last-child{border-bottom:none}
-.bk-av{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
-.bk-n{font-size:12px;font-weight:600;color:var(--butter);flex:1}
-.bk-c{font-size:10px;color:rgba(255,255,255,.22);margin-top:1px}
-.bk-t{font-size:10px;color:rgba(255,255,255,.15)}
-.bk-p{font-size:9px;font-weight:700;padding:3px 9px;border-radius:100px}
-.conf{background:rgba(107,158,110,.15);color:#88C48C}
-.pend{background:rgba(255,255,255,.04);color:rgba(255,255,255,.2)}
+.bkav{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+.bkn{font-size:var(--t6);font-weight:600;color:var(--bg);flex:1}
+.bkc{font-size:11px;color:rgba(255,255,255,.22);margin-top:1px}
+.bkt{font-size:11px;color:rgba(255,255,255,.15)}
+.bkp{font-size:9px;font-weight:700;padding:3px 9px;border-radius:100px}
+.conf{background:rgba(90,136,96,.15);color:#88C48C}
+.pend{background:rgba(255,255,255,.05);color:rgba(255,255,255,.22)}
 /* student */
-.student-inner{max-width:700px;margin:0 auto}
-.st-search{display:flex;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;margin-bottom:28px;background:rgba(255,255,255,.03)}
-.st-s-in{flex:1;border:none;outline:none;background:transparent;padding:16px 22px;font-size:14px;font-family:var(--n);color:white}
-.st-s-in::placeholder{color:rgba(255,255,255,.18)}
-.st-s-btn{background:var(--terra);color:white;border:none;padding:14px 28px;font-family:var(--n);font-size:12px;font-weight:700;cursor:pointer;transition:opacity .2s}
-.st-s-btn:hover{opacity:.85}
-.cl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:14px;overflow:hidden}
-.cl-card{background:rgba(255,255,255,.02);padding:24px 22px;cursor:pointer;transition:background .2s}
+.stu-in{max-width:700px;margin:0 auto}
+.stu-search{display:flex;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;margin:24px 0;background:rgba(255,255,255,.04)}
+.stu-i{flex:1;border:none;outline:none;background:transparent;padding:16px 22px;font-size:var(--t5);font-family:var(--n);color:white}
+.stu-i::placeholder{color:rgba(255,255,255,.18)}
+.stu-btn{background:var(--terra);color:white;border:none;padding:14px 28px;font-family:var(--n);font-size:var(--t7);font-weight:700;cursor:pointer;transition:opacity .2s}
+.stu-btn:hover{opacity:.85}
+.cl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:14px;overflow:hidden}
+.cl-card{background:rgba(255,255,255,.02);padding:24px 20px;cursor:pointer;transition:background .2s}
 .cl-card:hover{background:rgba(255,255,255,.05)}
 .cl-card.on{background:var(--terra)}
-.cl-card.on .cl-name{color:white}.cl-card.on .cl-loc{color:rgba(255,255,255,.5)}
-.cl-name{font-family:var(--f);font-size:16px;font-weight:700;color:var(--butter);margin-bottom:5px;letter-spacing:-.3px;transition:color .2s}
-.cl-loc{font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px;transition:color .2s}
-.cl-price{font-size:12px;color:rgba(255,255,255,.35)}
-.cl-price s{color:rgba(255,255,255,.18)}
-.cl-price strong{color:var(--sage);font-weight:700}
+.cl-n{font-family:var(--f);font-size:16px;font-weight:700;color:var(--bg);margin-bottom:4px;letter-spacing:-.3px;transition:color .2s}
+.cl-l{font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px;transition:color .2s}
+.cl-p{font-size:var(--t6);color:rgba(255,255,255,.35)}
+.cl-p s{color:rgba(255,255,255,.18)}
+.cl-p strong{color:var(--sage);font-weight:700}
 
 /* ── TESTIMONIALS ── */
-.test{background:var(--terra-lt);border-top:1px solid rgba(26,20,16,.07);border-bottom:1px solid rgba(26,20,16,.07);padding:112px 56px}
-.test-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
+.test{background:var(--bg);border-top:1px solid rgba(26,20,16,.09);border-bottom:1px solid rgba(26,20,16,.09);padding:112px 56px}
+.test-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px}
+.test-top .sec-h{font-size:clamp(38px,4.5vw,54px)}
 .test-nav{display:flex;gap:8px}
-.tn-btn{
-  width:38px;height:38px;border-radius:50%;
-  border:1px solid rgba(26,20,16,.15);background:transparent;
-  cursor:pointer;font-size:15px;color:var(--mid);
-  transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center;
-}
-.tn-btn:hover{background:var(--terra);color:white;border-color:var(--terra);transform:scale(1.08)}
-.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(26,20,16,.08);border-radius:18px;overflow:hidden}
-.tc{padding:44px 36px;background:var(--terra-lt);transition:background .25s var(--ease)}
-.tc:hover{background:#F7E5DA}
+.tnb{width:38px;height:38px;border-radius:50%;border:1px solid rgba(26,20,16,.15);background:transparent;cursor:pointer;font-size:15px;color:var(--mid);display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease)}
+.tnb:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:scale(1.08)}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(26,20,16,.09);border-radius:18px;overflow:hidden}
+.tc{padding:44px 36px;background:var(--paper);transition:background .25s}
+.tc:hover{background:white}
 .stars{display:flex;gap:3px;margin-bottom:22px}
-.s{width:10px;height:10px;background:var(--terra);border-radius:2px}
+.star{width:10px;height:10px;background:var(--terra);border-radius:2px}
 .tq{font-family:var(--f);font-style:italic;font-size:17px;line-height:1.65;color:var(--ink);margin-bottom:32px;font-weight:300}
-.tr{height:1px;background:rgba(26,20,16,.1);margin-bottom:20px;border-radius:1px}
-.tnm{font-size:13px;font-weight:700;color:var(--ink)}
-.tdt{font-size:11px;color:var(--mid);margin-top:3px;font-weight:400}
-.test-progress{display:flex;gap:6px;margin-top:28px}
-.tp{height:3px;width:20px;border-radius:2px;background:rgba(26,20,16,.12);cursor:pointer;transition:all .3s var(--ease)}
+.thr{height:1px;background:rgba(26,20,16,.1);margin-bottom:20px}
+.tnm{font-size:var(--t6);font-weight:700;color:var(--ink)}
+.tdt{font-size:11px;color:var(--mid);margin-top:3px}
+.tprog{display:flex;gap:6px;margin-top:28px}
+.tp{height:3px;width:18px;border-radius:2px;background:rgba(26,20,16,.14);cursor:pointer;transition:all .35s var(--ease)}
 .tp.on{background:var(--terra);width:36px}
 
 /* ── CTA ── */
-.cta{
-  background:var(--butter);padding:128px 56px;
-  text-align:center;position:relative;overflow:hidden;
-  border-bottom:1px solid rgba(26,20,16,.07);
-}
-.cta-ghost{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-family:var(--f);font-style:italic;
-  font-size:clamp(140px,20vw,240px);
-  font-weight:900;color:rgba(26,20,16,.03);
-  letter-spacing:-10px;white-space:nowrap;
-  pointer-events:none;user-select:none;line-height:1;
-}
-.cta-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mid);margin-bottom:24px;position:relative}
-.cta-h{
-  font-family:var(--f);font-size:clamp(52px,8vw,96px);
-  font-weight:900;letter-spacing:-4px;line-height:.9;
-  color:var(--ink);margin-bottom:32px;position:relative;
-}
+.cta{background:var(--bg2);padding:128px 56px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(26,20,16,.09)}
+.cta-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--f);font-style:italic;font-size:clamp(140px,20vw,240px);font-weight:900;color:rgba(26,20,16,.04);letter-spacing:-10px;white-space:nowrap;pointer-events:none;user-select:none;line-height:1}
+.cta-ey{font-size:var(--t8);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mute);margin-bottom:24px;position:relative}
+.cta-h{font-family:var(--f);font-size:clamp(52px,8vw,96px);font-weight:900;letter-spacing:-4px;line-height:.9;color:var(--ink);margin-bottom:32px;position:relative}
 .cta-h em{font-style:italic;color:var(--terra)}
-.cta-toggle{
-  display:inline-flex;border:1px solid rgba(26,20,16,.12);
-  border-radius:100px;overflow:hidden;margin-bottom:28px;position:relative;
-  background:rgba(26,20,16,.03);
-}
-.ct-btn{
-  padding:12px 28px;font-size:13px;font-weight:600;
-  cursor:pointer;background:transparent;border:none;
-  font-family:var(--n);color:var(--mid);transition:all .25s var(--ease);
-}
-.ct-btn.on{background:var(--terra);color:white;border-radius:100px}
-.cta-ctx{font-size:15px;color:var(--mid);margin-bottom:40px;font-weight:300;line-height:1.7;position:relative;min-height:48px;transition:all .3s}
-.email-form{
-  display:flex;max-width:440px;margin:0 auto 16px;
-  border:1px solid rgba(26,20,16,.15);border-radius:100px;
-  overflow:hidden;background:white;position:relative;
-  box-shadow:0 4px 24px rgba(26,20,16,.06);
-  transition:box-shadow .2s;
-}
-.email-form:focus-within{box-shadow:0 4px 32px rgba(192,82,40,.15);border-color:var(--terra)}
-.email-in{flex:1;border:none;outline:none;background:transparent;padding:16px 24px;font-size:14px;font-family:var(--n);color:var(--ink)}
+.cta-toggle{display:inline-flex;border:1px solid rgba(26,20,16,.14);border-radius:100px;overflow:hidden;margin-bottom:28px;background:rgba(26,20,16,.04);position:relative}
+.ctb{padding:12px 28px;font-size:var(--t6);font-weight:600;cursor:pointer;background:transparent;border:none;font-family:var(--n);color:var(--mid);transition:all .25s var(--ease)}
+.ctb.on{background:var(--terra);color:white;border-radius:100px}
+.cta-ctx{font-size:var(--t5);color:var(--mid);margin-bottom:40px;font-weight:300;line-height:1.75;position:relative;min-height:52px;transition:all .3s}
+.email-wrap{display:flex;max-width:440px;margin:0 auto 16px;border:1px solid rgba(26,20,16,.14);border-radius:100px;overflow:hidden;background:var(--paper);position:relative;box-shadow:0 4px 24px rgba(26,20,16,.07);transition:box-shadow .25s,border-color .25s}
+.email-wrap:focus-within{box-shadow:0 4px 32px rgba(192,82,40,.18);border-color:rgba(192,82,40,.4)}
+.email-in{flex:1;border:none;outline:none;background:transparent;padding:16px 24px;font-size:var(--t5);font-family:var(--n);color:var(--ink)}
 .email-in::placeholder{color:var(--mute)}
-.email-go{
-  background:var(--terra);color:white;font-family:var(--n);
-  font-size:12px;font-weight:700;padding:12px 24px;border:none;cursor:pointer;
-  border-radius:100px;margin:5px;transition:all .2s var(--ease);white-space:nowrap;
-}
+.email-go{background:var(--terra);color:white;font-family:var(--n);font-size:var(--t7);font-weight:700;padding:12px 24px;border:none;cursor:pointer;border-radius:100px;margin:5px;transition:all .2s var(--ease);white-space:nowrap}
 .email-go:hover{background:var(--terra-dk);transform:scale(1.03)}
-.cta-fine{font-size:12px;color:var(--mute);position:relative}
+.cta-fine{font-size:var(--t7);color:var(--mute);position:relative}
 
 /* ── FOOTER ── */
-footer{
-  padding:36px 56px;background:var(--ink);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:20px;
-}
-.foot-left{display:flex;flex-direction:column;gap:8px}
-.logo-lt{color:var(--butter)}.logo-lt .dot{background:var(--terra)}
-.foot-tagline{font-family:var(--f);font-style:italic;font-size:14px;color:rgba(255,255,255,.25);font-weight:300;margin-top:2px}
-.foot-links{display:flex;gap:24px}
-.foot-links a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;font-weight:400;transition:color .15s;letter-spacing:.2px}
-.foot-links a:hover{color:rgba(255,255,255,.7)}
+footer{background:var(--ink);padding:56px 56px 40px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:32px;gap:40px;flex-wrap:wrap}
+.foot-brand{}
+.logo-ft{font-family:var(--f);font-size:22px;font-weight:900;font-style:italic;letter-spacing:-1px;color:var(--bg);display:inline-flex;align-items:flex-end;gap:1px;text-decoration:none;margin-bottom:14px;display:block}
+.logo-ft .dot{width:8px;height:8px;border-radius:50%;background:var(--terra);margin-bottom:3px;display:inline-block}
+.foot-tagline{font-family:var(--f);font-style:italic;font-size:15px;color:rgba(255,255,255,.28);font-weight:300;line-height:1.6;max-width:280px}
+.foot-cols{display:flex;gap:64px}
+.foot-col h4{font-size:var(--t8);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:16px}
+.foot-col a{display:block;font-size:var(--t6);color:rgba(255,255,255,.38);text-decoration:none;margin-bottom:10px;transition:color .15s;font-weight:400}
+.foot-col a:hover{color:var(--bg)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .foot-copy{font-size:11px;color:rgba(255,255,255,.14)}
+.foot-love{font-family:var(--f);font-style:italic;font-size:13px;color:rgba(255,255,255,.18)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   nav{padding:18px 24px}.nav-links{display:none}
-  .hero{height:auto;min-height:100svh}
-  .ring1{width:360px;height:360px}.ring2{width:230px;height:230px}
-  .hero-center{padding:140px 24px 48px;margin-top:0}
-  .hero-foot .hf-cell{padding:16px 16px}
-  .how{padding:72px 24px}.how-inner{grid-template-columns:1fr;gap:48px}.how-left{position:static}
+  .how{padding:72px 24px}.how-grid{grid-template-columns:1fr;gap:48px}.how-sticky{position:static}
   .classes{padding:72px 24px}
   .cg{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .cc.featured{grid-row:span 1}
-  .cc.featured .cc-name{font-size:20px}
+  .cc:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .cc:nth-child(n){grid-column:span 1}
   .sp.on{grid-template-columns:1fr;padding:64px 24px}
-  .sp.student-on{padding:64px 24px}
+  .sp.stu{padding:64px 24px}
   .test{padding:72px 24px}.tg{grid-template-columns:1fr}
   .cta{padding:88px 24px}
-  footer{padding:28px 24px;flex-direction:column;align-items:flex-start}
+  footer{padding:48px 24px 32px}
+  .foot-top{flex-direction:column}.foot-cols{gap:40px}
 }
 </style>
 </head>
@@ -369,183 +287,190 @@ footer{
     <a class="nl" href="#classes">Classes</a>
     <a class="nl" href="#studios">For studios</a>
   </div>
-  <a class="nav-btn" href="#cta">Join the waitlist</a>
+  <a class="nav-cta" href="#cta">Join the waitlist</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
-  <div class="ring ring1"></div>
-  <div class="ring ring2"></div>
-  <div id="orbit"></div>
-  <div class="hero-center">
-    <div class="hero-kicker"><div class="kdot"></div>Now in early access</div>
-    <h1 class="hero-h">The place<br>to try <em>something<br>new.</em></h1>
-    <p class="hero-sub" id="hsub">Hover a hobby. Find your thing.</p>
-    <div class="hero-btns">
-      <a href="#classes" class="btn-main">Browse classes</a>
-      <a href="#studios" class="btn-sub">List your studio</a>
+  <div class="hero-main" id="hero-main">
+    <div id="orbit"></div>
+    <div id="hero-center">
+      <div class="hero-kicker"><div class="kdot"></div>Now in early access</div>
+      <div id="headline">The place<br>to try<br><em>something new.</em></div>
+      <p id="hero-sub">Hover a hobby. Find your thing.</p>
+      <div class="hero-btns">
+        <a href="#classes" class="btn-fill">Browse classes</a>
+        <a href="#studios" class="btn-ghost">List your studio</a>
+      </div>
     </div>
   </div>
-  <div class="hero-foot">
-    <div class="hf-cell"><div class="hf-n">200+</div><div class="hf-div"></div><div class="hf-l">Studios across the UK</div></div>
-    <div class="hf-cell"><div class="hf-n">40%</div><div class="hf-div"></div><div class="hf-l">Average discount</div></div>
-    <div class="hf-cell"><div class="hf-n">15+</div><div class="hf-div"></div><div class="hf-l">Hobby categories</div></div>
-    <div class="hf-cell"><div class="hf-n">2 min</div><div class="hf-div"></div><div class="hf-l">Average booking time</div></div>
+  <div class="stat-strip">
+    <div class="sc"><div class="sn counter" data-target="200" data-suffix="+">200+</div><div class="sdiv"></div><div class="sl">Studios across the UK</div></div>
+    <div class="sc"><div class="sn counter" data-target="40" data-suffix="%">40%</div><div class="sdiv"></div><div class="sl">Average discount</div></div>
+    <div class="sc"><div class="sn counter" data-target="15" data-suffix="+">15+</div><div class="sdiv"></div><div class="sl">Hobby categories</div></div>
+    <div class="sc"><div class="sn">2 min</div><div class="sdiv"></div><div class="sl">Average booking time</div></div>
   </div>
 </section>
 
-<!-- HOW -->
 <section id="how" class="how">
-  <div class="how-inner">
-    <div class="how-left reveal">
-      <div class="sec-tag">How it works</div>
+  <div class="how-grid">
+    <div class="how-sticky reveal">
+      <span class="eyebrow">How it works</span>
       <div class="sec-h">Simple<br>as <em>that.</em></div>
-      <p class="how-body" style="margin-top:20px">No memberships, no faff. Built for people who want to actually do something — not just think about it.</p>
-      <div class="si-dots" style="margin-top:32px">
-        <div class="si-dot on" onclick="setStep(0)"></div>
-        <div class="si-dot" onclick="setStep(1)"></div>
-        <div class="si-dot" onclick="setStep(2)"></div>
+      <p class="body-l" style="margin-top:20px;max-width:300px">No memberships, no faff. Built for people who want to actually do something — not just think about it.</p>
+      <div class="si-wrap">
+        <div class="si on" onclick="setStep(0)"></div>
+        <div class="si" onclick="setStep(1)"></div>
+        <div class="si" onclick="setStep(2)"></div>
       </div>
     </div>
-    <div class="steps-right reveal reveal-d1">
-      <div class="step-card on" onclick="setStep(0)">
-        <div class="step-n-wrap"><div class="step-n">1</div></div>
-        <div><div class="step-title">Browse classes near you</div><div class="step-detail">Search by hobby, area or price. Every listing is genuinely discounted — not the slots nobody else wanted.</div></div>
+    <div class="steps reveal d1">
+      <div class="step on" onclick="setStep(0)">
+        <div class="step-bubble"><div class="step-num">1</div></div>
+        <div><div class="step-title">Browse classes near you</div><div class="step-body">Search by hobby, area or price. Every listing is genuinely discounted — not the slots nobody else wanted.</div></div>
       </div>
-      <div class="step-card" onclick="setStep(1)">
-        <div class="step-n-wrap"><div class="step-n">2</div></div>
-        <div><div class="step-title">Book in two minutes</div><div class="step-detail">Pay securely online. Studios love filling seats — the discounts are always real and always worth it.</div></div>
+      <div class="step" onclick="setStep(1)">
+        <div class="step-bubble"><div class="step-num">2</div></div>
+        <div><div class="step-title">Book in two minutes</div><div class="step-body">Pay securely online. Studios love filling seats — the discounts are always real and always worth it.</div></div>
       </div>
-      <div class="step-card" onclick="setStep(2)">
-        <div class="step-n-wrap"><div class="step-n">3</div></div>
-        <div><div class="step-title">Show up and have fun</div><div class="step-detail">Turn up, try something new, meet people who get it. The best communities start exactly like this.</div></div>
+      <div class="step" onclick="setStep(2)">
+        <div class="step-bubble"><div class="step-num">3</div></div>
+        <div><div class="step-title">Show up and have fun</div><div class="step-body">Turn up, try something new, meet people who get it. The best communities start exactly like this.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CLASSES -->
 <section id="classes" class="classes">
-  <div class="classes-head reveal">
+  <div class="classes-top reveal">
     <div class="sec-h">Something for <em>everyone.</em></div>
-    <a href="#cta" class="sall">View all classes →</a>
+    <a href="#cta" class="view-all">View all →</a>
   </div>
-  <div class="cg reveal reveal-d1">
-    <div class="cc featured on" onclick="pickC(this)">
+  <div class="cg reveal d1">
+    <div class="cc on" onclick="pickC(this)">
       <span class="cc-disc">Up to 35% off</span>
-      <div class="cc-top">
-        <div class="cc-name">Art &amp;<br>Painting</div>
-        <div class="cc-count">42 classes near you</div>
-        <div class="cc-saving">Save ~£18 per class</div>
-      </div>
+      <div><div class="cc-name">Art &amp;<br>Painting</div><div class="cc-count">42 classes near you</div><div class="cc-save">Save ~£18 per class</div></div>
     </div>
-    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 40% off</span><div class="cc-top"><div class="cc-name">Dance</div><div class="cc-count">38 classes</div><div class="cc-saving">Save ~£14</div></div></div>
-    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 30% off</span><div class="cc-top"><div class="cc-name">Pottery</div><div class="cc-count">21 classes</div><div class="cc-saving">Save ~£12</div></div></div>
-    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 45% off</span><div class="cc-top"><div class="cc-name">Photography</div><div class="cc-count">17 classes</div><div class="cc-saving">Save ~£22</div></div></div>
-    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 35% off</span><div class="cc-top"><div class="cc-name">Music</div><div class="cc-count">29 classes</div><div class="cc-saving">Save ~£16</div></div></div>
-    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 30% off</span><div class="cc-top"><div class="cc-name">Cooking</div><div class="cc-count">33 classes</div><div class="cc-saving">Save ~£11</div></div></div>
-    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 40% off</span><div class="cc-top"><div class="cc-name">Yoga</div><div class="cc-count">45 classes</div><div class="cc-saving">Save ~£9</div></div></div>
+    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 40% off</span><div><div class="cc-name">Dance</div><div class="cc-count">38 classes</div><div class="cc-save">Save ~£14</div></div></div>
+    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 30% off</span><div><div class="cc-name">Pottery</div><div class="cc-count">21 classes</div><div class="cc-save">Save ~£12</div></div></div>
+    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 45% off</span><div><div class="cc-name">Photography</div><div class="cc-count">17 classes</div><div class="cc-save">Save ~£22</div></div></div>
+    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 35% off</span><div><div class="cc-name">Music</div><div class="cc-count">29 classes</div><div class="cc-save">Save ~£16</div></div></div>
+    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 30% off</span><div><div class="cc-name">Cooking</div><div class="cc-count">33 classes</div><div class="cc-save">Save ~£11</div></div></div>
+    <div class="cc" onclick="pickC(this)"><span class="cc-disc">Up to 40% off</span><div><div class="cc-name">Yoga</div><div class="cc-count">45 classes</div><div class="cc-save">Save ~£9</div></div></div>
   </div>
 </section>
 
-<!-- STUDIOS -->
 <section id="studios" class="studios">
   <div class="studios-tabs">
     <div class="stab on" onclick="switchTab('studio')">I run a studio</div>
     <div class="stab" onclick="switchTab('student')">I want to learn</div>
   </div>
   <div class="sp on" id="ps">
-    <div class="st-copy reveal">
-      <div class="sec-tag">For studios</div>
+    <div class="reveal">
+      <span class="st-ey">For studios</span>
       <div class="st-h">Fill your seats.<br>Grow your <em>crew.</em></div>
-      <p class="st-body">Hobbi brings motivated young people straight to your door — people who want to try something new, not just scroll past it.</p>
-      <div class="perk-list">
+      <p class="st-body">Hobbi brings motivated young people straight to your door — people who genuinely want to try something new, not just scroll past it.</p>
+      <div class="perks">
         <div class="pk"><div class="pk-dot"></div><span>Reach thousands of 18–30 year olds near you</span></div>
         <div class="pk"><div class="pk-dot"></div><span>Fill last-minute slots with real, confirmed bookings</span></div>
         <div class="pk"><div class="pk-dot"></div><span>Zero commission during early access</span></div>
-        <div class="pk"><div class="pk-dot"></div><span>Live dashboard, instant booking notifications</span></div>
+        <div class="pk"><div class="pk-dot"></div><span>Live dashboard and instant booking notifications</span></div>
       </div>
-      <a href="#cta" class="btn-main">List your studio →</a>
+      <a href="#cta" class="btn-fill">List your studio →</a>
     </div>
-    <div class="dash reveal reveal-d1">
-      <div class="dash-h"><div class="dash-hl">Studio overview</div><div class="dash-live"><div class="ld"></div>Live</div></div>
-      <div class="dash-stats">
-        <div class="ds"><div class="ds-v">34</div><div class="ds-l">Bookings this week</div><div class="ds-bar"><div class="ds-fill" style="width:72%;background:var(--butter-dk)"></div></div></div>
-        <div class="ds"><div class="ds-v">£840</div><div class="ds-l">Revenue this month</div><div class="ds-bar"><div class="ds-fill" style="width:58%;background:var(--sage)"></div></div></div>
+    <div class="dash reveal d1">
+      <div class="dh"><div class="dhl">Studio overview</div><div class="dlive"><div class="ldot"></div>Live</div></div>
+      <div class="dstats">
+        <div class="ds"><div class="dsv">34</div><div class="dsl">Bookings this week</div><div class="dbar"><div class="dbf" style="width:72%;background:#E8CE72"></div></div></div>
+        <div class="ds"><div class="dsv">£840</div><div class="dsl">Revenue this month</div><div class="dbar"><div class="dbf" style="width:58%;background:var(--sage)"></div></div></div>
       </div>
-      <div class="bk"><div class="bk-av" style="background:rgba(192,82,40,.12);color:var(--terra)">AK</div><div><div class="bk-n">Amara K.</div><div class="bk-c">Pottery Basics · Tue 6pm</div></div><div class="bk-t">2m</div><div class="bk-p conf">Confirmed</div></div>
-      <div class="bk"><div class="bk-av" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)">JM</div><div><div class="bk-n">Jake M.</div><div class="bk-c">Intro to Dance · Wed 7pm</div></div><div class="bk-t">18m</div><div class="bk-p conf">Confirmed</div></div>
-      <div class="bk"><div class="bk-av" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)">SR</div><div><div class="bk-n">Sofia R.</div><div class="bk-c">Oil Painting · Thu 5pm</div></div><div class="bk-t">1h</div><div class="bk-p pend">Pending</div></div>
+      <div class="bk"><div class="bkav" style="background:rgba(192,82,40,.15);color:var(--terra)">AK</div><div><div class="bkn">Amara K.</div><div class="bkc">Pottery Basics · Tue 6pm</div></div><div class="bkt">2m</div><div class="bkp conf">Confirmed</div></div>
+      <div class="bk"><div class="bkav" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)">JM</div><div><div class="bkn">Jake M.</div><div class="bkc">Intro to Dance · Wed 7pm</div></div><div class="bkt">18m</div><div class="bkp conf">Confirmed</div></div>
+      <div class="bk"><div class="bkav" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)">SR</div><div><div class="bkn">Sofia R.</div><div class="bkc">Oil Painting · Thu 5pm</div></div><div class="bkt">1h</div><div class="bkp pend">Pending</div></div>
     </div>
   </div>
   <div class="sp" id="pst">
-    <div class="student-inner">
-      <div class="sec-tag">Find a class</div>
+    <div class="stu-in">
+      <span class="st-ey">Find a class</span>
       <div class="st-h">What do you<br>want to <em>try?</em></div>
-      <div class="st-search" style="margin-top:28px">
-        <input class="st-s-in" placeholder="Try 'pottery in Shoreditch' or 'dance near me'..."/>
-        <button class="st-s-btn">Search</button>
-      </div>
+      <div class="stu-search"><input class="stu-i" placeholder="Try 'pottery in Shoreditch' or 'dance near me'..."/><button class="stu-btn">Search</button></div>
       <div class="cl-cards">
-        <div class="cl-card" onclick="pickCard(this)"><div class="cl-name">Wheel Throwing</div><div class="cl-loc">Studio Clay · Shoreditch</div><div class="cl-price"><s>£45</s> → <strong>£29</strong></div></div>
-        <div class="cl-card" onclick="pickCard(this)"><div class="cl-name">Beginners Salsa</div><div class="cl-loc">Rhythm Room · Dalston</div><div class="cl-price"><s>£30</s> → <strong>£18</strong></div></div>
-        <div class="cl-card" onclick="pickCard(this)"><div class="cl-name">Film Photography</div><div class="cl-loc">The Dark Room · Hackney</div><div class="cl-price"><s>£55</s> → <strong>£32</strong></div></div>
+        <div class="cl-card" onclick="pickCard(this)"><div class="cl-n">Wheel Throwing</div><div class="cl-l">Studio Clay · Shoreditch</div><div class="cl-p"><s>£45</s> → <strong>£29</strong></div></div>
+        <div class="cl-card" onclick="pickCard(this)"><div class="cl-n">Beginners Salsa</div><div class="cl-l">Rhythm Room · Dalston</div><div class="cl-p"><s>£30</s> → <strong>£18</strong></div></div>
+        <div class="cl-card" onclick="pickCard(this)"><div class="cl-n">Film Photography</div><div class="cl-l">The Dark Room · Hackney</div><div class="cl-p"><s>£55</s> → <strong>£32</strong></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="test">
-  <div class="test-head reveal">
+  <div class="test-top reveal">
     <div class="sec-h">People who found <em>their thing.</em></div>
     <div class="test-nav">
-      <button class="tn-btn" onclick="prevTest()">←</button>
-      <button class="tn-btn" onclick="nextTest()">→</button>
+      <button class="tnb" onclick="prevTest()">←</button>
+      <button class="tnb" onclick="nextTest()">→</button>
     </div>
   </div>
-  <div class="tg reveal reveal-d1" id="tg"></div>
-  <div class="test-progress" id="tp">
+  <div class="tg reveal d1" id="tg"></div>
+  <div class="tprog" id="tprog">
     <div class="tp on" onclick="goTest(0)"></div>
     <div class="tp" onclick="goTest(1)"></div>
   </div>
 </section>
 
-<!-- CTA -->
 <section id="cta" class="cta">
   <div class="cta-ghost">yours</div>
   <div class="reveal">
-    <div class="cta-tag">Early access</div>
+    <div class="cta-ey">Early access</div>
     <div class="cta-h">Your next hobby<br>is <em>waiting.</em></div>
     <div class="cta-toggle">
-      <button class="ct-btn on" onclick="ctaSw(this,'student')">I want to learn</button>
-      <button class="ct-btn" onclick="ctaSw(this,'studio')">I run a studio</button>
+      <button class="ctb on" onclick="ctaSw(this,'student')">I want to learn</button>
+      <button class="ctb" onclick="ctaSw(this,'studio')">I run a studio</button>
     </div>
     <p class="cta-ctx" id="ctaCtx">Join thousands of young people already signed up.<br>Be first in your city when we launch.</p>
     <div style="max-width:440px;margin:0 auto">
-      <div class="email-form">
-        <input class="email-in" type="email" id="ctaEmail" placeholder="Your email address"/>
-        <button class="email-go" id="ctaBtn">Get early access</button>
-      </div>
+      <div class="email-wrap"><input class="email-in" type="email" id="ctaEmail" placeholder="Your email address"/><button class="email-go" id="ctaBtn">Get early access</button></div>
       <div class="cta-fine">Free to join · No spam · Unsubscribe anytime</div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="foot-left">
-    <a class="logo logo-lt" href="#">hobbi<span class="dot"></span></a>
-    <div class="foot-tagline">The place to try something new.</div>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="logo-ft" href="#">hobbi<span class="dot"></span></a>
+      <p class="foot-tagline">The place where you finally try the thing you've been putting off. No excuses, just good classes at fair prices.</p>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#">How it works</a>
+        <a href="#">Browse classes</a>
+        <a href="#">For studios</a>
+        <a href="#">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
   </div>
-  <div class="foot-links">
-    <a href="#">About</a><a href="#">For Studios</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a>
+  <div class="foot-bottom">
+    <div class="foot-copy">© 2026 Hobbi Ltd. All rights reserved.</div>
+    <div class="foot-love">Made with care in London.</div>
   </div>
-  <div class="foot-copy">© 2026 Hobbi Ltd.</div>
 </footer>
 
 <script>
-// ── ORBIT ──
+// ── ORBIT — fully computed ──
 const hobbies=[
   {name:'Pottery',   line:'Get your hands dirty.'},
   {name:'Dance',     line:"Move like nobody's watching."},
@@ -556,52 +481,134 @@ const hobbies=[
   {name:'Yoga',      line:'Find your centre.'},
   {name:'Floristry', line:'Grow something gorgeous.'},
 ]
-const R=238,SPEED=0.016
-let angle=0,paused=false,last=null
-const orbitEl=document.getElementById('orbit')
-const tags=[]
-hobbies.forEach((h,i)=>{
-  const t=document.createElement('div')
-  t.className='otag'
-  t.textContent=h.name
-  orbitEl.appendChild(t)
-  tags.push({el:t,base:(i/hobbies.length)*360,h})
-  t.addEventListener('mouseenter',()=>{
-    paused=true
-    tags.forEach(x=>x.el.classList.remove('on'))
-    t.classList.add('on')
-    document.getElementById('hsub').innerHTML=`<em>${h.name}</em> — ${h.line}`
+
+let orbitAngle=0, orbitPaused=false, orbitLast=null, orbitTags=[], orbitR=0, orbitRAF=null
+
+function buildOrbit(){
+  const nav=document.getElementById('nav')
+  const strip=document.querySelector('.stat-strip')
+  const vw=window.innerWidth, vh=window.innerHeight
+  const navH=nav.offsetHeight, stripH=strip.offsetHeight
+  const heroH=vh-navH
+  const areaH=heroH-stripH
+
+  document.getElementById('hero-main').style.height=areaH+'px'
+
+  const cx=vw/2, cy=areaH/2
+
+  // rings — capped so they never touch edges
+  const maxR=Math.min(cx-48, areaH/2-32)
+  const R1=Math.min(maxR,252), R2=R1*0.64
+
+  // clear old rings
+  document.querySelectorAll('.hero-ring').forEach(r=>r.remove())
+  ;[R1,R2].forEach((r,i)=>{
+    const d=document.createElement('div')
+    d.className='hero-ring ring'
+    Object.assign(d.style,{
+      position:'absolute',borderRadius:'50%',pointerEvents:'none',
+      width:r*2+'px',height:r*2+'px',
+      left:(cx-r)+'px',top:(cy-r)+'px',
+      border:`1px solid rgba(26,20,16,${i===0?.065:.042})`
+    })
+    document.getElementById('hero-main').appendChild(d)
   })
-  t.addEventListener('mouseleave',()=>{
-    paused=false
-    t.classList.remove('on')
-    document.getElementById('hsub').textContent='Hover a hobby. Find your thing.'
+
+  // orbit container
+  const orbitEl=document.getElementById('orbit')
+  orbitEl.style.left=cx+'px'
+  orbitEl.style.top=cy+'px'
+
+  // tag orbit radius — comfortably between inner and outer ring
+  orbitR=R1-26
+
+  // headline size — fits safely inside inner ring
+  const hlSize=Math.max(32,Math.min(68,Math.floor(R2*0.7)))
+  document.getElementById('headline').style.fontSize=hlSize+'px'
+
+  // centre content
+  const hc=document.getElementById('hero-center')
+  hc.style.left=cx+'px'
+  hc.style.top=cy+'px'
+  hc.style.transform='translate(-50%,-50%)'
+  hc.style.width=(R2*2-48)+'px'
+
+  // rebuild tags
+  orbitEl.innerHTML=''
+  orbitTags=[]
+  if(orbitRAF) cancelAnimationFrame(orbitRAF)
+
+  hobbies.forEach((h,i)=>{
+    const t=document.createElement('div')
+    t.className='otag'
+    t.textContent=h.name
+    orbitEl.appendChild(t)
+    orbitTags.push({el:t,base:(i/hobbies.length)*360})
+
+    t.addEventListener('mouseenter',()=>{
+      orbitPaused=true
+      orbitTags.forEach(x=>x.el.classList.remove('on'))
+      t.classList.add('on')
+      document.getElementById('hero-sub').innerHTML=`<em>${h.name}</em> — ${h.line}`
+    })
+    t.addEventListener('mouseleave',()=>{
+      orbitPaused=false
+      t.classList.remove('on')
+      document.getElementById('hero-sub').textContent='Hover a hobby. Find your thing.'
+    })
   })
-})
-function pos(){
-  tags.forEach(({el,base})=>{
-    const a=(base+angle)*Math.PI/180
-    el.style.left=Math.round(Math.cos(a)*R)+'px'
-    el.style.top=Math.round(Math.sin(a)*R)+'px'
-    el.style.transform='translate(-50%,-50%)'
-  })
+
+  function pos(){
+    orbitTags.forEach(({el,base})=>{
+      const a=(base+orbitAngle)*Math.PI/180
+      el.style.left=Math.round(Math.cos(a)*orbitR)+'px'
+      el.style.top=Math.round(Math.sin(a)*orbitR)+'px'
+      el.style.transform='translate(-50%,-50%)'
+    })
+  }
+
+  orbitLast=null
+  function loop(ts){
+    if(orbitLast!==null&&!orbitPaused){orbitAngle+=0.014*(ts-orbitLast);if(orbitAngle>=360)orbitAngle-=360}
+    orbitLast=ts;pos();orbitRAF=requestAnimationFrame(loop)
+  }
+  pos();orbitRAF=requestAnimationFrame(loop)
 }
-function loop(ts){
-  if(last!==null&&!paused){angle+=SPEED*(ts-last);if(angle>=360)angle-=360}
-  last=ts;pos();requestAnimationFrame(loop)
-}
-pos();requestAnimationFrame(loop)
+
+document.fonts.ready.then(buildOrbit)
+window.addEventListener('resize',buildOrbit)
 
 // ── SCROLL REVEAL ──
 const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})
-},{threshold:.12})
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+},{threshold:.1})
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el))
+
+// ── COUNTER ANIMATION ──
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return
+    const el=e.target
+    const target=+el.dataset.target
+    const suffix=el.dataset.suffix||''
+    let start=null
+    function tick(ts){
+      if(!start) start=ts
+      const p=Math.min((ts-start)/1200,1)
+      const ease=1-Math.pow(1-p,3)
+      el.textContent=Math.round(ease*target)+suffix
+      if(p<1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+    cio.unobserve(el)
+  })
+},{threshold:.5})
+document.querySelectorAll('.counter').forEach(el=>cio.observe(el))
 
 // ── HOW ──
 function setStep(n){
-  document.querySelectorAll('.step-card').forEach((s,i)=>s.classList.toggle('on',i===n))
-  document.querySelectorAll('.si-dot').forEach((d,i)=>d.classList.toggle('on',i===n))
+  document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('on',i===n))
+  document.querySelectorAll('.si').forEach((d,i)=>d.classList.toggle('on',i===n))
 }
 
 // ── CLASSES ──
@@ -610,13 +617,8 @@ function pickC(el){document.querySelectorAll('.cc').forEach(c=>c.classList.remov
 // ── STUDIOS ──
 function switchTab(t){
   document.querySelectorAll('.stab').forEach((s,i)=>s.classList.toggle('on',(i===0&&t==='studio')||(i===1&&t==='student')))
-  if(t==='studio'){
-    document.getElementById('ps').className='sp on'
-    document.getElementById('pst').className='sp'
-  } else {
-    document.getElementById('pst').className='sp student-on'
-    document.getElementById('ps').className='sp'
-  }
+  if(t==='studio'){document.getElementById('ps').className='sp on';document.getElementById('pst').className='sp'}
+  else{document.getElementById('pst').className='sp stu';document.getElementById('ps').className='sp'}
 }
 function pickCard(el){document.querySelectorAll('.cl-card').forEach(c=>c.classList.remove('on'));el.classList.add('on')}
 
@@ -624,14 +626,14 @@ function pickCard(el){document.querySelectorAll('.cl-card').forEach(c=>c.classLi
 const allT=[
   {q:'"I\'d been putting off pottery for years because of the cost. Hobbi got me in for half price. I haven\'t missed a week since."',nm:'Zara H.',dt:'Student · London'},
   {q:'"Our Tuesday evenings were always half empty. Since listing on Hobbi they\'re consistently full — exactly the crowd we wanted."',nm:'Marco P.',dt:'Owner · Studio Forma'},
-  {q:'"Booked a photography workshop ten minutes away in two minutes flat. Discount was real. Met people I now consider friends."',nm:'Theo K.',dt:'Graduate · Manchester'},
-  {q:'"I never thought I\'d be a pottery person but here I am. Hobbi made it so easy and affordable. Best thing I did this year."',nm:'Priya S.',dt:'Designer · Bristol'},
+  {q:'"Booked a photography workshop ten minutes away in two minutes flat. Discount was real. Met people I now consider actual friends."',nm:'Theo K.',dt:'Graduate · Manchester'},
+  {q:'"I never thought I\'d be a pottery person but here I am. Hobbi made it so easy and so affordable. Best thing I did this year."',nm:'Priya S.',dt:'Designer · Bristol'},
   {q:'"Listing was dead simple. Within a week we had new faces who\'ve since become regulars. Exactly what we needed."',nm:'Chloe W.',dt:'Owner · Movement Lab'},
   {q:'"Found a floristry class on a whim. Now I bring flowers home every week. Changed how I think about my free time."',nm:'Tom R.',dt:'Student · Edinburgh'},
 ]
 let tp=0
 function renderT(){
-  document.getElementById('tg').innerHTML=allT.slice(tp*3,tp*3+3).map(t=>`<div class="tc"><div class="stars">${'<div class="s"></div>'.repeat(5)}</div><p class="tq">${t.q}</p><div class="tr"></div><div class="tnm">${t.nm}</div><div class="tdt">${t.dt}</div></div>`).join('')
+  document.getElementById('tg').innerHTML=allT.slice(tp*3,tp*3+3).map(t=>`<div class="tc"><div class="stars">${'<div class="star"></div>'.repeat(5)}</div><p class="tq">${t.q}</p><div class="thr"></div><div class="tnm">${t.nm}</div><div class="tdt">${t.dt}</div></div>`).join('')
   document.querySelectorAll('.tp').forEach((p,i)=>p.classList.toggle('on',i===tp))
 }
 function nextTest(){tp=(tp+1)%2;renderT()}
@@ -641,9 +643,9 @@ renderT()
 
 // ── CTA ──
 function ctaSw(el,type){
-  document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on')
+  document.querySelectorAll('.ctb').forEach(b=>b.classList.remove('on'));el.classList.add('on')
   if(type==='studio'){
-    document.getElementById('ctaCtx').innerHTML='List your studio for free. Fill your slots,<br>grow your community, zero commission.'
+    document.getElementById('ctaCtx').innerHTML='List your studio for free. Fill your slots,<br>grow your community. Zero commission to start.'
     document.getElementById('ctaBtn').textContent='List my studio'
     document.getElementById('ctaEmail').placeholder='Your studio email'
   } else {
