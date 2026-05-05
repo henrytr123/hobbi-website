@@ -19,7 +19,6 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--n);background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* SHARED */
 .logo{font-family:var(--f);font-size:21px;font-weight:900;font-style:italic;letter-spacing:-1px;color:var(--ink);display:inline-flex;align-items:flex-end;gap:1px;text-decoration:none;transition:opacity .2s}
 .logo:hover{opacity:.7}
 .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--terra);margin-bottom:3px;display:inline-block;flex-shrink:0}
@@ -36,7 +35,6 @@ body{font-family:var(--n);background:var(--bg);color:var(--ink);overflow-x:hidde
 .reveal.in{opacity:1;transform:translateY(0)}
 .reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}
 
-/* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;padding:20px 52px;background:rgba(242,213,200,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(26,20,16,.08);position:sticky;top:0;z-index:100}
 .nav-links{display:flex;gap:36px}
 .nl{font-size:13px;color:var(--mid);text-decoration:none;font-weight:400;position:relative;transition:color .15s}
@@ -45,68 +43,40 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:20px 5
 .nav-cta{background:var(--ink);color:var(--bg);font-family:var(--n);font-size:12px;font-weight:700;padding:11px 24px;border-radius:100px;text-decoration:none;letter-spacing:.3px;transition:all .2s var(--ease)}
 .nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
 
-/* HERO MAP */
+/* HERO */
 .hero{position:relative;overflow:hidden;background:var(--bg)}
 canvas#map{display:block;cursor:grab;touch-action:none}
 canvas#map:active{cursor:grabbing}
 
-/* location search bar */
-.loc-bar{
-  position:absolute;top:24px;right:24px;z-index:15;
-  display:flex;gap:0;
-  background:white;border-radius:100px;
-  box-shadow:0 4px 24px rgba(26,20,16,.14);
-  border:1px solid rgba(26,20,16,.08);
-  overflow:hidden;transition:box-shadow .25s;
-  width:280px;
-}
-.loc-bar:focus-within{box-shadow:0 4px 32px rgba(192,82,40,.2);border-color:rgba(192,82,40,.3)}
-.loc-input{
-  flex:1;border:none;outline:none;background:transparent;
-  padding:13px 18px;font-size:13px;font-family:var(--n);color:var(--ink);
-  font-weight:400;
-}
+.loc-bar{position:absolute;top:20px;left:50%;transform:translateX(-50%);z-index:15;display:flex;background:white;border-radius:100px;box-shadow:0 4px 20px rgba(26,20,16,.12);border:1px solid rgba(26,20,16,.07);overflow:hidden;width:320px;transition:box-shadow .2s,width .3s var(--ease)}
+.loc-bar:focus-within{box-shadow:0 4px 28px rgba(192,82,40,.2);border-color:rgba(192,82,40,.3);width:360px}
+.loc-input{flex:1;border:none;outline:none;background:transparent;padding:13px 18px;font-size:13px;font-family:var(--n);color:var(--ink)}
 .loc-input::placeholder{color:var(--mute)}
-.loc-btn{
-  background:var(--terra);color:white;border:none;
-  padding:10px 18px;font-family:var(--n);font-size:12px;font-weight:700;
-  cursor:pointer;transition:opacity .2s;border-radius:0 100px 100px 0;
-  white-space:nowrap;display:flex;align-items:center;gap:5px;margin:4px;
-  border-radius:100px;
-}
+.loc-btn{background:var(--terra);color:white;border:none;padding:10px 18px;font-family:var(--n);font-size:12px;font-weight:700;cursor:pointer;border-radius:100px;margin:4px;transition:opacity .2s;white-space:nowrap}
 .loc-btn:hover{opacity:.85}
-.loc-btn svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-/* hero copy */
-.hero-copy{position:absolute;bottom:90px;left:52px;z-index:10;pointer-events:none;max-width:360px}
-.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mid);margin-bottom:18px;animation:fadeUp .8s var(--ease) both}
+.hero-copy{position:absolute;bottom:80px;left:48px;z-index:10;max-width:340px;pointer-events:none}
+.hero-copy-inner{background:rgba(242,213,200,.85);backdrop-filter:blur(14px);border-radius:20px;padding:24px 28px;border:1px solid rgba(26,20,16,.07);pointer-events:all}
+.kicker{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mid);margin-bottom:14px}
 .kdot{width:5px;height:5px;border-radius:50%;background:var(--terra);animation:breathe 2s ease-in-out infinite}
-.hero-h{font-family:var(--f);font-size:clamp(40px,5vw,64px);font-weight:900;line-height:.92;letter-spacing:-3px;color:var(--ink);margin-bottom:14px;animation:fadeUp .8s var(--ease) .12s both}
+.hero-h{font-family:var(--f);font-size:clamp(36px,4.5vw,54px);font-weight:900;line-height:.92;letter-spacing:-2.5px;color:var(--ink);margin-bottom:10px}
 .hero-h em{font-style:italic;color:var(--terra)}
-.hero-sub{font-size:14px;line-height:1.72;color:var(--mid);font-weight:300;margin-bottom:24px;animation:fadeUp .8s var(--ease) .22s both}
-.hero-btns{display:flex;gap:10px;pointer-events:all;animation:fadeUp .8s var(--ease) .3s both}
+.hero-sub{font-size:13px;line-height:1.65;color:var(--mid);font-weight:300;margin-bottom:20px}
+.hero-btns{display:flex;gap:8px}
+.hb1{background:var(--terra);color:white;font-family:var(--n);font-size:12px;font-weight:700;padding:11px 22px;border-radius:100px;text-decoration:none;transition:opacity .2s}
+.hb1:hover{opacity:.85}
+.hb2{background:rgba(26,20,16,.07);color:var(--ink);font-family:var(--n);font-size:12px;padding:10px 18px;border-radius:100px;text-decoration:none;border:1px solid rgba(26,20,16,.14);transition:all .2s}
+.hb2:hover{background:rgba(26,20,16,.12)}
 
-/* drag hint */
-.drag-hint{position:absolute;bottom:92px;right:52px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:6px;z-index:10;pointer-events:none;opacity:.6}
-
-/* studio popup */
-.studio-popup{
-  position:absolute;z-index:20;
-  background:white;border-radius:16px;padding:18px 22px;min-width:210px;
-  box-shadow:0 8px 36px rgba(26,20,16,.14);pointer-events:none;
-  opacity:0;transform:translateY(10px) scale(.97);
-  transition:opacity .2s var(--ease),transform .2s var(--ease);
-  border:1px solid rgba(26,20,16,.06);
-}
+.studio-popup{position:absolute;z-index:20;background:white;border-radius:16px;padding:16px 20px;min-width:200px;box-shadow:0 8px 32px rgba(26,20,16,.14);pointer-events:none;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .2s var(--ease),transform .2s var(--ease);border:1px solid rgba(26,20,16,.06)}
 .studio-popup.show{opacity:1;transform:translateY(0) scale(1)}
-.pop-cat{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra);margin-bottom:6px}
-.pop-name{font-family:var(--f);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:3px;letter-spacing:-.3px}
-.pop-loc{font-size:12px;color:var(--mid);margin-bottom:10px;display:flex;align-items:center;gap:4px}
+.pop-cat{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra);margin-bottom:5px}
+.pop-name{font-family:var(--f);font-size:17px;font-weight:700;color:var(--ink);margin-bottom:3px;letter-spacing:-.3px}
+.pop-loc{font-size:12px;color:var(--mid);margin-bottom:10px}
 .pop-price{font-size:13px;font-weight:700;color:var(--sage)}
 .pop-price s{color:var(--mute);font-weight:400;margin-right:4px}
-.pop-dist{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(90,136,96,.12);color:var(--sage);padding:3px 9px;border-radius:100px;margin-top:8px}
+.pop-dist{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(90,136,96,.1);color:var(--sage);padding:3px 9px;border-radius:100px;margin-top:8px}
 
-/* stat strip */
 .stat-strip{display:flex;border-top:1px solid rgba(26,20,16,.09);background:var(--bg);position:relative;z-index:10}
 .sc{flex:1;padding:18px 32px;border-right:1px solid rgba(26,20,16,.09);display:flex;align-items:center;gap:10px;transition:background .2s}
 .sc:last-child{border-right:none}
@@ -218,7 +188,7 @@ canvas#map:active{cursor:grabbing}
 .cl-card{background:rgba(255,255,255,.02);padding:24px 20px;cursor:pointer;transition:background .2s}
 .cl-card:hover{background:rgba(255,255,255,.05)}
 .cl-card.on{background:var(--terra)}
-.cl-n{font-family:var(--f);font-size:16px;font-weight:700;color:var(--bg);margin-bottom:4px;letter-spacing:-.3px;transition:color .2s}
+.cl-n{font-family:var(--f);font-size:16px;font-weight:700;color:var(--bg);margin-bottom:4px;letter-spacing:-.3px}
 .cl-l{font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px}
 .cl-p{font-size:12px;color:rgba(255,255,255,.35)}
 .cl-p s{color:rgba(255,255,255,.18)}
@@ -261,7 +231,6 @@ canvas#map:active{cursor:grabbing}
 .email-go:hover{background:var(--terra-dk);transform:scale(1.03)}
 .cta-fine{font-size:12px;color:var(--mute);position:relative}
 
-/* FOOTER */
 footer{background:var(--ink);padding:56px 56px 40px}
 .foot-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:32px;gap:40px;flex-wrap:wrap}
 .logo-ft{font-family:var(--f);font-size:22px;font-weight:900;font-style:italic;letter-spacing:-1px;color:var(--bg);display:block;text-decoration:none;margin-bottom:14px}
@@ -277,14 +246,14 @@ footer{background:var(--ink);padding:56px 56px 40px}
 
 @media(max-width:900px){
   nav{padding:18px 24px}.nav-links{display:none}
-  .loc-bar{top:16px;right:16px;width:220px}
-  .hero-copy{left:24px;bottom:72px}
+  .loc-bar{width:calc(100% - 48px);max-width:320px}
+  .hero-copy{left:20px;bottom:72px;max-width:calc(100% - 40px)}
   .how{padding:72px 24px}.how-grid{grid-template-columns:1fr;gap:48px}.how-sticky{position:static}
   .classes{padding:72px 24px}.cg{grid-template-columns:1fr 1fr;grid-template-rows:auto}.cc:nth-child(1){grid-column:span 2;grid-row:span 1}.cc:nth-child(n){grid-column:span 1}.cc:nth-child(1) .cc-name{font-size:20px}
   .sp.on{grid-template-columns:1fr;padding:64px 24px}.sp.stu{padding:64px 24px}
   .test{padding:72px 24px}.tg{grid-template-columns:1fr}
   .cta{padding:88px 24px}
-  footer{padding:48px 24px 32px}.foot-top{flex-direction:column}.foot-cols{gap:40px}
+  footer{padding:48px 24px 32px}.foot-top{flex-direction:column}.foot-cols{gap:40px;flex-wrap:wrap}
 }
 </style>
 </head>
@@ -302,27 +271,21 @@ footer{background:var(--ink);padding:56px 56px 40px}
 
 <section class="hero" id="hero">
   <canvas id="map"></canvas>
-
-  <!-- location search -->
   <div class="loc-bar">
-    <input class="loc-input" id="locInput" placeholder="Enter your area..." autocomplete="off"/>
-    <button class="loc-btn" onclick="searchLocation()">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Find studios
-    </button>
+    <input class="loc-input" id="locInput" placeholder="Search your area — e.g. Hackney..." autocomplete="off"/>
+    <button class="loc-btn" onclick="doSearch()">Search</button>
   </div>
-
   <div class="hero-copy">
-    <div class="hero-kicker"><div class="kdot"></div><span id="hero-kicker-txt">Studios near you</span></div>
-    <h1 class="hero-h">Your next<br><em>hobby</em><br>is close.</h1>
-    <p class="hero-sub" id="hero-sub">Drag to explore the map.<br>Hover a dot to discover a studio.</p>
-    <div class="hero-btns">
-      <a href="#classes" class="btn-fill">Browse classes</a>
-      <a href="#studios" class="btn-ghost">List your studio</a>
+    <div class="hero-copy-inner">
+      <div class="kicker"><div class="kdot"></div><span id="kicker-txt">Studios near you</span></div>
+      <h1 class="hero-h">Your next<br><em>hobby</em><br>is close.</h1>
+      <p class="hero-sub" id="hero-sub">Drag the map. Hover a dot.<br>Find something to love.</p>
+      <div class="hero-btns">
+        <a href="#classes" class="hb1">Browse classes</a>
+        <a href="#studios" class="hb2">List your studio</a>
+      </div>
     </div>
   </div>
-
-  <div class="drag-hint">⟳ Drag to explore</div>
   <div class="studio-popup" id="popup">
     <div class="pop-cat" id="pop-cat"></div>
     <div class="pop-name" id="pop-name"></div>
@@ -478,335 +441,154 @@ footer{background:var(--ink);padding:56px 56px 40px}
 </footer>
 
 <script>
-// ── STUDIO DATA ──
-const studios = [
-  {name:'Studio Clay',cat:'Pottery',loc:'Shoreditch, E1',area:'shoreditch',price:'£29',was:'£45',color:'#C05228',dist:0.3},
-  {name:'Rhythm Room',cat:'Dance',loc:'Dalston, E8',area:'dalston',price:'£18',was:'£30',color:'#5A8860',dist:0.6},
-  {name:'The Dark Room',cat:'Photography',loc:'Hackney, E9',area:'hackney',price:'£32',was:'£55',color:'#6B5444',dist:0.8},
-  {name:'Brush & Co',cat:'Painting',loc:'Islington, N1',area:'islington',price:'£22',was:'£38',color:'#C05228',dist:1.1},
-  {name:'Sound Garden',cat:'Music',loc:'Brixton, SW9',area:'brixton',price:'£24',was:'£40',color:'#5A8860',dist:1.4},
-  {name:'The Kitchen Table',cat:'Cooking',loc:'Peckham, SE15',area:'peckham',price:'£28',was:'£45',color:'#A08070',dist:1.6},
-  {name:'Flow Studio',cat:'Yoga',loc:'Clapham, SW4',area:'clapham',price:'£14',was:'£22',color:'#5A8860',dist:0.9},
-  {name:'Petal Workshop',cat:'Floristry',loc:'Marylebone, W1',area:'marylebone',price:'£35',was:'£55',color:'#C05228',dist:1.2},
-  {name:'Clay Quarter',cat:'Pottery',loc:'Bethnal Green, E2',area:'bethnal green',price:'£26',was:'£40',color:'#5A8860',dist:0.5},
-  {name:'Move Studio',cat:'Dance',loc:'Elephant, SE1',area:'elephant',price:'£20',was:'£32',color:'#6B5444',dist:0.7},
-  {name:'Lensman Labs',cat:'Photography',loc:'Shoreditch, E1',area:'shoreditch',price:'£30',was:'£52',color:'#C05228',dist:0.4},
-  {name:'Canvas Club',cat:'Painting',loc:'Stoke Newington, N16',area:'stoke newington',price:'£19',was:'£32',color:'#5A8860',dist:1.8},
-  {name:'The Hearth',cat:'Cooking',loc:'Notting Hill, W11',area:'notting hill',price:'£32',was:'£50',color:'#A08070',dist:2.1},
-  {name:'Still & Strong',cat:'Yoga',loc:'Hackney, E8',area:'hackney',price:'£12',was:'£20',color:'#5A8860',dist:0.9},
-  {name:'Bloom Studio',cat:'Floristry',loc:'Chelsea, SW3',area:'chelsea',price:'£38',was:'£60',color:'#C05228',dist:2.3},
-  {name:'Tone Room',cat:'Music',loc:'Soho, W1',area:'soho',price:'£28',was:'£44',color:'#6B5444',dist:1.5},
-  {name:'Form & Fire',cat:'Pottery',loc:'Bermondsey, SE1',area:'bermondsey',price:'£31',was:'£48',color:'#5A8860',dist:0.8},
-  {name:'Step Space',cat:'Dance',loc:'Vauxhall, SE11',area:'vauxhall',price:'£16',was:'£28',color:'#A08070',dist:1.1},
+// ── MAP DATA ──
+const CAT_COLORS={Pottery:'#C05228',Dance:'#5A7FA8',Photography:'#6B5444',Painting:'#8B6E3C',Music:'#7A5A8A',Cooking:'#8A6040',Yoga:'#5A8860',Floristry:'#7A8A40',Ceramics:'#C05228',Drawing:'#8B6E3C'}
+const studios=[
+  {name:'Studio Clay',cat:'Pottery',loc:'Shoreditch, E1',area:'shoreditch',price:'£29',was:'£45',dist:.3,x:.18,y:.22},
+  {name:'Rhythm Room',cat:'Dance',loc:'Dalston, E8',area:'dalston',price:'£18',was:'£30',dist:.6,x:.38,y:.14},
+  {name:'The Dark Room',cat:'Photography',loc:'Hackney, E9',area:'hackney',price:'£32',was:'£55',dist:.8,x:.55,y:.28},
+  {name:'Brush & Co',cat:'Painting',loc:'Islington, N1',area:'islington',price:'£22',was:'£38',dist:1.1,x:.29,y:.38},
+  {name:'Sound Garden',cat:'Music',loc:'Brixton, SW9',area:'brixton',price:'£24',was:'£40',dist:1.4,x:.44,y:.62},
+  {name:'The Kitchen Table',cat:'Cooking',loc:'Peckham, SE15',area:'peckham',price:'£28',was:'£45',dist:1.6,x:.64,y:.72},
+  {name:'Flow Studio',cat:'Yoga',loc:'Clapham, SW4',area:'clapham',price:'£14',was:'£22',dist:.9,x:.28,y:.74},
+  {name:'Petal Workshop',cat:'Floristry',loc:'Marylebone, W1',area:'marylebone',price:'£35',was:'£55',dist:1.2,x:.12,y:.48},
+  {name:'Clay Quarter',cat:'Pottery',loc:'Bethnal Green, E2',area:'bethnal green',price:'£26',was:'£40',dist:.5,x:.72,y:.18},
+  {name:'Move Studio',cat:'Dance',loc:'Elephant, SE1',area:'elephant',price:'£20',was:'£32',dist:.7,x:.52,y:.52},
+  {name:'Lensman Labs',cat:'Photography',loc:'Shoreditch, E1',area:'shoreditch',price:'£30',was:'£52',dist:.4,x:.22,y:.12},
+  {name:'Canvas Club',cat:'Painting',loc:'Stoke Newington, N16',area:'stoke newington',price:'£19',was:'£32',dist:1.8,x:.82,y:.36},
+  {name:'The Hearth',cat:'Cooking',loc:'Notting Hill, W11',area:'notting hill',price:'£32',was:'£50',dist:2.1,x:.08,y:.62},
+  {name:'Still & Strong',cat:'Yoga',loc:'Hackney, E8',area:'hackney',price:'£12',was:'£20',dist:.9,x:.62,y:.42},
+  {name:'Bloom Studio',cat:'Floristry',loc:'Chelsea, SW3',area:'chelsea',price:'£38',was:'£60',dist:2.3,x:.18,y:.82},
+  {name:'Tone Room',cat:'Music',loc:'Soho, W1',area:'soho',price:'£28',was:'£44',dist:1.5,x:.34,y:.58},
+  {name:'Form & Fire',cat:'Ceramics',loc:'Bermondsey, SE1',area:'bermondsey',price:'£31',was:'£48',dist:.8,x:.78,y:.58},
+  {name:'Step Space',cat:'Dance',loc:'Vauxhall, SE11',area:'vauxhall',price:'£16',was:'£28',dist:1.1,x:.46,y:.80},
+  {name:'Sketch Room',cat:'Drawing',loc:'Hackney, E8',area:'hackney',price:'£17',was:'£28',dist:.7,x:.68,y:.86},
+  {name:'The Wheel',cat:'Pottery',loc:'Peckham, SE15',area:'peckham',price:'£24',was:'£38',dist:1.5,x:.88,y:.72},
+  {name:'Body & Soul',cat:'Yoga',loc:'Brixton, SW9',area:'brixton',price:'£11',was:'£18',dist:1.3,x:.14,y:.34},
+  {name:'Crop & Print',cat:'Photography',loc:'Dalston, E8',area:'dalston',price:'£27',was:'£44',dist:.6,x:.92,y:.46},
 ]
-
-// assign grid positions
-const COLS=8, ROWS=6
-studios.forEach((s,i)=>{
-  s.gx = (i%COLS) + .4 + Math.random()*.2
-  s.gy = Math.floor(i/COLS) + .4 + Math.random()*.2
-})
-
-// decor dots for map texture
-const decor = Array.from({length:80},()=>({
-  gx:Math.random()*COLS, gy:Math.random()*ROWS,
-  r:1+Math.random()*2.5, a:.04+Math.random()*.1
-}))
-
-// streets
-const hStreets=[.8,1.8,2.8,3.8,4.8,5.5].map(y=>({y,w:Math.random()>.6?2:1}))
-const vStreets=[.7,1.7,2.7,3.7,4.7,5.7,6.7,7.7].map(x=>({x,w:Math.random()>.6?2:1}))
+const ambient=Array.from({length:120},()=>({x:Math.random(),y:Math.random(),r:1.2+Math.random()*3.5,a:.03+Math.random()*.12,hue:Math.random()>.5?'192,82,40':'107,80,68'}))
+function makeStreets(){
+  const lines=[]
+  for(let i=0;i<8;i++){const pts=[];const by=i/8+.06;for(let x=0;x<=1;x+=.08)pts.push({x,y:by+Math.sin(x*12+i*2.3)*.018+Math.cos(x*7+i)*.012});lines.push({pts,w:Math.random()>.7?1.8:1,a:Math.random()>.6?.08:.045})}
+  for(let i=0;i<12;i++){const pts=[];const bx=i/12+.04;for(let y=0;y<=1;y+=.06)pts.push({x:bx+Math.sin(y*10+i*1.7)*.014+Math.cos(y*6+i)*.009,y});lines.push({pts,w:Math.random()>.7?1.5:1,a:Math.random()>.6?.07:.04})}
+  return lines
+}
+const streets=makeStreets()
+const blocks=Array.from({length:40},()=>({x:.05+Math.random()*.9,y:.05+Math.random()*.9,w:.02+Math.random()*.06,h:.02+Math.random()*.05,a:.04+Math.random()*.06}))
 
 const canvas=document.getElementById('map')
 const ctx=canvas.getContext('2d')
 const popup=document.getElementById('popup')
-
-let W,H,cW,cH
-let offX=0,offY=0
-let dragging=false,dsx,dsy,dox,doy
-let hovered=null
-let searchedArea=null
-let animating=true
-let bgPat=null
+let W,H,offX=0,offY=0,dragging=false,dsx,dsy,dox,doy,hovered=null,searchArea=null,bgPat=null
 
 function resize(){
-  const nav=document.querySelector('nav')
-  const strip=document.querySelector('.stat-strip')
-  W=window.innerWidth
-  H=window.innerHeight-nav.offsetHeight-strip.offsetHeight
-  canvas.width=W; canvas.height=H
-  document.getElementById('hero').style.height=H+'px'
-  cW=W/COLS; cH=H/ROWS
+  const nav=document.querySelector('nav'),strip=document.querySelector('.stat-strip')
+  W=window.innerWidth;H=window.innerHeight-nav.offsetHeight-strip.offsetHeight
+  canvas.width=W;canvas.height=H;document.getElementById('hero').style.height=H+'px'
 }
-
-function toScreen(gx,gy){return{x:gx*cW+offX, y:gy*cH+offY}}
-
-function makePat(){
-  const p=document.createElement('canvas');p.width=28;p.height=28
-  const px=p.getContext('2d')
-  px.fillStyle='rgba(26,20,16,.05)'
-  px.beginPath();px.arc(14,14,1.3,0,Math.PI*2);px.fill()
-  bgPat=ctx.createPattern(p,'repeat')
-}
+function sc(x,y){return{x:x*W*1.6+offX,y:y*H*1.6+offY}}
+function makePat(){const p=document.createElement('canvas');p.width=32;p.height=32;const px=p.getContext('2d');px.strokeStyle='rgba(26,20,16,.045)';px.lineWidth=.5;px.beginPath();px.moveTo(16,0);px.lineTo(16,32);px.stroke();px.beginPath();px.moveTo(0,16);px.lineTo(32,16);px.stroke();px.fillStyle='rgba(26,20,16,.035)';px.beginPath();px.arc(0,0,1.2,0,Math.PI*2);px.fill();bgPat=ctx.createPattern(p,'repeat')}
+function hexRgb(h){return`${parseInt(h.slice(1,3),16)},${parseInt(h.slice(3,5),16)},${parseInt(h.slice(5,7),16)}`}
+function lighten(hex,a){return`rgb(${Math.min(parseInt(hex.slice(1,3),16)+Math.round(a*255),255)},${Math.min(parseInt(hex.slice(3,5),16)+Math.round(a*255),255)},${Math.min(parseInt(hex.slice(5,7),16)+Math.round(a*255),255)})`}
+if(!CanvasRenderingContext2D.prototype.roundRect){CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){this.beginPath();this.moveTo(x+r,y);this.lineTo(x+w-r,y);this.quadraticCurveTo(x+w,y,x+w,y+r);this.lineTo(x+w,y+h-r);this.quadraticCurveTo(x+w,y+h,x+w-r,y+h);this.lineTo(x+r,y+h);this.quadraticCurveTo(x,y+h,x,y+h-r);this.lineTo(x,y+r);this.quadraticCurveTo(x,y,x+r,y)}}
 
 function draw(){
-  if(!animating) return
   ctx.clearRect(0,0,W,H)
-
-  // bg
-  ctx.fillStyle='#F2D5C8';ctx.fillRect(0,0,W,H)
-  if(!bgPat) makePat()
-  ctx.fillStyle=bgPat;ctx.fillRect(0,0,W,H)
-
-  // streets
-  ctx.lineCap='round'
-  hStreets.forEach(({y,w})=>{
-    const sy=toScreen(0,y).y
-    ctx.beginPath();ctx.moveTo(-50,sy);ctx.lineTo(W+50,sy)
-    ctx.strokeStyle=`rgba(26,20,16,${w===2?.09:.05})`;ctx.lineWidth=w;ctx.stroke()
-  })
-  vStreets.forEach(({x,w})=>{
-    const sx=toScreen(x,0).x
-    ctx.beginPath();ctx.moveTo(sx,-50);ctx.lineTo(sx,H+50)
-    ctx.strokeStyle=`rgba(26,20,16,${w===2?.09:.05})`;ctx.lineWidth=w;ctx.stroke()
-  })
-
-  // decor
-  decor.forEach(d=>{
-    const {x,y}=toScreen(d.gx,d.gy)
-    if(x<-20||x>W+20||y<-20||y>H+20) return
-    ctx.beginPath();ctx.arc(x,y,d.r,0,Math.PI*2)
-    ctx.fillStyle=`rgba(192,82,40,${d.a})`;ctx.fill()
-  })
-
+  const g=ctx.createRadialGradient(W*.4,H*.4,0,W*.5,H*.5,Math.max(W,H)*.8)
+  g.addColorStop(0,'#F5DAD0');g.addColorStop(.6,'#F2D5C8');g.addColorStop(1,'#EECABB')
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H)
+  if(!bgPat)makePat();ctx.fillStyle=bgPat;ctx.fillRect(0,0,W,H)
+  blocks.forEach(b=>{const{x:bx,y:by}=sc(b.x,b.y);ctx.fillStyle=`rgba(26,20,16,${b.a})`;ctx.beginPath();ctx.roundRect(bx,by,b.w*W*.8,b.h*H*.8,3);ctx.fill()})
+  ctx.lineCap='round';ctx.lineJoin='round'
+  streets.forEach(l=>{if(l.pts.length<2)return;ctx.beginPath();const f=sc(l.pts[0].x,l.pts[0].y);ctx.moveTo(f.x,f.y);for(let i=1;i<l.pts.length;i++){const{x,y}=sc(l.pts[i].x,l.pts[i].y);ctx.lineTo(x,y)}ctx.strokeStyle=`rgba(26,20,16,${l.a})`;ctx.lineWidth=l.w;ctx.stroke()})
+  ambient.forEach(d=>{const{x,y}=sc(d.x,d.y);if(x<-10||x>W+10||y<-10||y>H+10)return;ctx.beginPath();ctx.arc(x,y,d.r,0,Math.PI*2);ctx.fillStyle=`rgba(${d.hue},${d.a})`;ctx.fill()})
   const now=Date.now()
-
-  // studio dots
   studios.forEach((s,i)=>{
-    const {x,y}=toScreen(s.gx,s.gy)
-    if(x<-30||x>W+30||y<-30||y>H+30) return
-
-    const isHov=hovered===i
-    const isSearch=searchedArea&&s.area.includes(searchedArea)
-    const isDim=searchedArea&&!isSearch
-
-    // pulse ring
-    const pulse=((now+i*300)%2400)/2400
-    const pr=(isHov?14:9)+pulse*16
-    ctx.beginPath();ctx.arc(x,y,pr,0,Math.PI*2)
-    ctx.strokeStyle=`rgba(192,82,40,${(isHov?.3:isSearch?.25:.15)*(1-pulse)})`
-    ctx.lineWidth=1.5;ctx.stroke()
-
-    // glow on hover/search
-    if(isHov||isSearch){
-      const grad=ctx.createRadialGradient(x,y,0,x,y,32)
-      grad.addColorStop(0,`rgba(192,82,40,${isHov?.3:.15})`)
-      grad.addColorStop(1,'rgba(192,82,40,0)')
-      ctx.beginPath();ctx.arc(x,y,32,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill()
-    }
-
-    // dot
-    ctx.globalAlpha=isDim?.2:1
-    ctx.beginPath();ctx.arc(x,y,isHov?12:8,0,Math.PI*2)
-    ctx.fillStyle=isSearch?'#C05228':s.color;ctx.fill()
-
-    // white centre
-    ctx.beginPath();ctx.arc(x,y,(isHov?12:8)*.38,0,Math.PI*2)
-    ctx.fillStyle='rgba(255,255,255,.65)';ctx.fill()
+    const{x,y}=sc(s.x,s.y);if(x<-40||x>W+40||y<-40||y>H+40)return
+    const isHov=hovered===i,isMatch=searchArea&&(s.area.includes(searchArea)||s.loc.toLowerCase().includes(searchArea)),isDim=searchArea&&!isMatch
+    const col=CAT_COLORS[s.cat]||'#C05228',dotR=isHov?13:9
+    ctx.globalAlpha=isDim?.15:1
+    ctx.shadowBlur=isHov?20:8;ctx.shadowColor=`rgba(26,20,16,${isHov?.2:.08})`
+    const pulse=((now+i*400)%2600)/2600,pr=dotR+pulse*22
+    ctx.beginPath();ctx.arc(x,y,pr,0,Math.PI*2);ctx.strokeStyle=`rgba(${hexRgb(col)},${(isMatch?.3:isHov?.25:.14)*(1-pulse)})`;ctx.lineWidth=isHov?2:1.5;ctx.stroke()
+    if(isMatch&&!isHov){const p2=((now+i*400+1300)%2600)/2600;ctx.beginPath();ctx.arc(x,y,dotR+p2*28,0,Math.PI*2);ctx.strokeStyle=`rgba(${hexRgb(col)},${.2*(1-p2)})`;ctx.lineWidth=1;ctx.stroke()}
+    if(isHov||isMatch){const gg=ctx.createRadialGradient(x,y,0,x,y,40);gg.addColorStop(0,`rgba(${hexRgb(col)},${isHov?.35:.18})`);gg.addColorStop(1,`rgba(${hexRgb(col)},0)`);ctx.beginPath();ctx.arc(x,y,40,0,Math.PI*2);ctx.fillStyle=gg;ctx.fill()}
+    ctx.shadowBlur=0;ctx.beginPath();ctx.arc(x,y,dotR,0,Math.PI*2);ctx.fillStyle=isHov||isMatch?col:lighten(col,.25);ctx.fill()
+    ctx.beginPath();ctx.arc(x,y,dotR*.35,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${isHov?.9:.7})`;ctx.fill()
     ctx.globalAlpha=1
-
-    // label
     if(!isDim){
-      ctx.font=`${isHov?'700':'500'} 11px "DM Sans",sans-serif`
-      ctx.fillStyle=isHov?'#C05228':'rgba(26,20,16,.45)'
-      ctx.globalAlpha=isDim?.2:1
-      ctx.textAlign='center'
-      ctx.fillText(s.cat,x,y+(isHov?12:8)+14)
-      ctx.globalAlpha=1
+      ctx.font=`${isHov?700:500} 11px "DM Sans",sans-serif`;const tw=ctx.measureText(s.cat).width,pw=tw+16,ph=20,px2=x-pw/2,py2=y+dotR+6
+      ctx.fillStyle=isHov||isMatch?'rgba(255,255,255,.95)':'rgba(250,247,242,.75)';ctx.shadowBlur=isHov?8:0;ctx.shadowColor='rgba(26,20,16,.1)';ctx.beginPath();ctx.roundRect(px2,py2,pw,ph,100);ctx.fill();ctx.shadowBlur=0
+      ctx.fillStyle=isHov||isMatch?col:'rgba(26,20,16,.5)';ctx.textAlign='center';ctx.fillText(s.cat,x,py2+13.5)
     }
-
-    // distance badge on search
-    if(isSearch&&!isHov){
-      const badge=`${s.dist}mi`
-      ctx.font='700 10px "DM Sans",sans-serif'
-      const bw=ctx.measureText(badge).width+12
-      ctx.fillStyle='rgba(90,136,96,.9)'
-      roundRect(ctx,x-bw/2,y-24,bw,16,8)
-      ctx.fill()
-      ctx.fillStyle='white'
-      ctx.fillText(badge,x,y-13)
-    }
+    if(isMatch&&!isHov){const badge=`${s.dist}mi`,bw=ctx.measureText(badge).width+14;ctx.font='700 10px "DM Sans",sans-serif';ctx.fillStyle='rgba(90,136,96,.88)';ctx.beginPath();ctx.roundRect(x-bw/2,y-dotR-20,bw,16,8);ctx.fill();ctx.fillStyle='white';ctx.textAlign='center';ctx.fillText(badge,x,y-dotR-8)}
   })
-
   requestAnimationFrame(draw)
 }
 
-function roundRect(ctx,x,y,w,h,r){
-  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y)
-  ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r)
-  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h)
-  ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r)
-  ctx.quadraticCurveTo(x,y,x+r,y)
-}
-
-// ── LOCATION SEARCH ──
-function searchLocation(){
-  const val=document.getElementById('locInput').value.trim().toLowerCase()
-  if(!val){searchedArea=null;resetHeroText();return}
-
-  searchedArea=val
-  const matches=studios.filter(s=>s.area.includes(val)||s.loc.toLowerCase().includes(val))
-
-  if(matches.length===0){
-    document.getElementById('hero-sub').textContent=`No studios found in "${val}" yet — we're growing fast.`
-    searchedArea=null
-    return
-  }
-
-  // pan map to centre of matching studios
-  const avgGx=matches.reduce((a,s)=>a+s.gx,0)/matches.length
-  const avgGy=matches.reduce((a,s)=>a+s.gy,0)/matches.length
-  const targetX=W/2-avgGx*cW
-  const targetY=H/2-avgGy*cH
-  animatePan(targetX,targetY,600)
-
-  // update copy
-  document.getElementById('hero-kicker-txt').textContent=`${matches.length} studio${matches.length>1?'s':''} near ${val}`
-  document.getElementById('hero-sub').textContent=`Hover a dot to explore. Up to 45% off, all near you.`
-
-  // sort by distance and show first in popup
-  const nearest=matches.sort((a,b)=>a.dist-b.dist)[0]
-  showPopupForStudio(studios.indexOf(nearest))
-}
-
-function resetHeroText(){
-  document.getElementById('hero-kicker-txt').textContent='Studios near you'
-  document.getElementById('hero-sub').textContent='Drag to explore the map.\nHover a dot to discover a studio.'
-}
-
-// smooth pan animation
-function animatePan(tx,ty,dur){
-  const sx=offX,sy=offY
-  const start=performance.now()
-  function step(now){
-    const p=Math.min((now-start)/dur,1)
-    const e=1-Math.pow(1-p,3)
-    offX=sx+(tx-sx)*e
-    offY=sy+(ty-sy)*e
-    if(p<1) requestAnimationFrame(step)
-  }
-  requestAnimationFrame(step)
-}
-
-function showPopupForStudio(i){
-  const s=studios[i]
-  hovered=i
-  const {x,y}=toScreen(s.gx,s.gy)
+function showPopup(i){
+  const s=studios[i],{x,y}=sc(s.x,s.y)
   document.getElementById('pop-cat').textContent=s.cat
   document.getElementById('pop-name').textContent=s.name
   document.getElementById('pop-loc').textContent=s.loc
   document.getElementById('pop-price').innerHTML=`<s>${s.was}</s> → <strong style="color:var(--sage)">${s.price}</strong>`
-  const distEl=document.getElementById('pop-dist')
-  if(searchedArea){distEl.style.display='inline-block';distEl.textContent=`${s.dist} miles away`}
-  else{distEl.style.display='none'}
-  positionPopup(x,y)
-  popup.classList.add('show')
+  const de=document.getElementById('pop-dist')
+  if(searchArea&&(s.area.includes(searchArea)||s.loc.toLowerCase().includes(searchArea))){de.style.display='inline-block';de.textContent=`${s.dist} miles away`}else de.style.display='none'
+  let px=x+18,py=y-20;if(px+230>W)px=x-248;if(py<10)py=y+22;if(py+160>H)py=H-170
+  popup.style.left=px+'px';popup.style.top=py+'px';popup.classList.add('show')
 }
 
-function positionPopup(x,y){
-  let px=x+20,py=y-20
-  if(px+230>W) px=x-250
-  if(py<10) py=y+20
-  if(py+160>H) py=H-170
-  popup.style.left=px+'px'
-  popup.style.top=py+'px'
-}
-
-// ── INTERACTION ──
-canvas.addEventListener('mousedown',e=>{
-  dragging=true;dsx=e.clientX;dsy=e.clientY;dox=offX;doy=offY
-  popup.classList.remove('show');hovered=null
-})
+canvas.addEventListener('mousedown',e=>{dragging=true;dsx=e.clientX;dsy=e.clientY;dox=offX;doy=offY})
 window.addEventListener('mousemove',e=>{
-  if(dragging){
-    offX=dox+(e.clientX-dsx);offY=doy+(e.clientY-dsy)
-    return
-  }
-  const rect=canvas.getBoundingClientRect()
-  const mx=e.clientX-rect.left,my=e.clientY-rect.top
-  let found=null
-  studios.forEach((s,i)=>{
-    const {x,y}=toScreen(s.gx,s.gy)
-    if(Math.sqrt((mx-x)**2+(my-y)**2)<16) found=i
-  })
-  if(found!==null&&found!==hovered){
-    hovered=found
-    const s=studios[found]
-    const {x,y}=toScreen(s.gx,s.gy)
-    document.getElementById('pop-cat').textContent=s.cat
-    document.getElementById('pop-name').textContent=s.name
-    document.getElementById('pop-loc').textContent=s.loc
-    document.getElementById('pop-price').innerHTML=`<s>${s.was}</s> → <strong style="color:var(--sage)">${s.price}</strong>`
-    const distEl=document.getElementById('pop-dist')
-    if(searchedArea&&s.area.includes(searchedArea)){distEl.style.display='inline-block';distEl.textContent=`${s.dist} miles away`}
-    else{distEl.style.display='none'}
-    positionPopup(x,y)
-    popup.classList.add('show')
-  } else if(found===null){
-    hovered=null;popup.classList.remove('show')
-  }
+  if(dragging){offX=dox+(e.clientX-dsx);offY=doy+(e.clientY-dsy);popup.classList.remove('show');hovered=null;return}
+  const rect=canvas.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top
+  let found=null;studios.forEach((s,i)=>{const{x,y}=sc(s.x,s.y);if(Math.sqrt((mx-x)**2+(my-y)**2)<18)found=i})
+  if(found!==null&&found!==hovered){hovered=found;showPopup(found)}
+  else if(found===null){hovered=null;popup.classList.remove('show')}
 })
 window.addEventListener('mouseup',()=>dragging=false)
-
-// enter key on search
-document.getElementById('locInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchLocation()})
-
-// touch
 canvas.addEventListener('touchstart',e=>{const t=e.touches[0];dragging=true;dsx=t.clientX;dsy=t.clientY;dox=offX;doy=offY},{passive:true})
 canvas.addEventListener('touchmove',e=>{e.preventDefault();const t=e.touches[0];offX=dox+(t.clientX-dsx);offY=doy+(t.clientY-dsy)},{passive:false})
 canvas.addEventListener('touchend',()=>dragging=false)
 
-// init
-window.addEventListener('resize',()=>{resize();bgPat=null})
-resize()
-draw()
+function animPan(tx,ty){const sx=offX,sy=offY,start=performance.now();function step(now){const p=Math.min((now-start)/700,1),e=1-Math.pow(1-p,3);offX=sx+(tx-sx)*e;offY=sy+(ty-sy)*e;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
 
-// ── SCROLL REVEAL ──
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
-},{threshold:.1})
+function doSearch(){
+  const val=document.getElementById('locInput').value.trim().toLowerCase()
+  if(!val){searchArea=null;document.getElementById('kicker-txt').textContent='Studios near you';document.getElementById('hero-sub').textContent='Drag the map. Hover a dot.\nFind something to love.';return}
+  searchArea=val
+  const matches=studios.filter(s=>s.area.includes(val)||s.loc.toLowerCase().includes(val))
+  if(!matches.length){document.getElementById('hero-sub').textContent=`Nothing in "${val}" yet — we're growing fast!`;return}
+  const avgX=matches.reduce((a,s)=>a+s.x,0)/matches.length,avgY=matches.reduce((a,s)=>a+s.y,0)/matches.length
+  animPan(W/2-avgX*W*1.6,H/2-avgY*H*1.6)
+  document.getElementById('kicker-txt').textContent=`${matches.length} studio${matches.length>1?'s':''} near ${val}`
+  document.getElementById('hero-sub').textContent=`Hover a dot to explore. Up to 45% off near you.`
+}
+document.getElementById('locInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()})
+
+window.addEventListener('resize',()=>{resize();bgPat=null})
+resize();draw()
+
+// SCROLL REVEAL
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1})
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el))
 
-// ── COUNTERS ──
-const cio=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return
-    const el=e.target,target=+el.dataset.target,suffix=el.dataset.suffix||''
-    let start=null
-    function tick(ts){if(!start)start=ts;const p=Math.min((ts-start)/1200,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*target)+suffix;if(p<1)requestAnimationFrame(tick)}
-    requestAnimationFrame(tick);cio.unobserve(el)
-  })
-},{threshold:.5})
+// COUNTERS
+const cio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,t=+el.dataset.target,s=el.dataset.suffix||'';let st=null;function tick(ts){if(!st)st=ts;const p=Math.min((ts-st)/1200,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*t)+s;if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick);cio.unobserve(el)})},{threshold:.5})
 document.querySelectorAll('.counter').forEach(el=>cio.observe(el))
 
-// ── HOW ──
-function setStep(n){
-  document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('on',i===n))
-  document.querySelectorAll('.si').forEach((d,i)=>d.classList.toggle('on',i===n))
-}
+// HOW
+function setStep(n){document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('on',i===n));document.querySelectorAll('.si').forEach((d,i)=>d.classList.toggle('on',i===n))}
 
-// ── CLASSES ──
+// CLASSES
 function pickC(el){document.querySelectorAll('.cc').forEach(c=>c.classList.remove('on'));el.classList.add('on')}
 
-// ── STUDIOS ──
-function switchTab(t){
-  document.querySelectorAll('.stab').forEach((s,i)=>s.classList.toggle('on',(i===0&&t==='studio')||(i===1&&t==='student')))
-  if(t==='studio'){document.getElementById('ps').className='sp on';document.getElementById('pst').className='sp'}
-  else{document.getElementById('pst').className='sp stu';document.getElementById('ps').className='sp'}
-}
+// STUDIOS
+function switchTab(t){document.querySelectorAll('.stab').forEach((s,i)=>s.classList.toggle('on',(i===0&&t==='studio')||(i===1&&t==='student')));if(t==='studio'){document.getElementById('ps').className='sp on';document.getElementById('pst').className='sp'}else{document.getElementById('pst').className='sp stu';document.getElementById('ps').className='sp'}}
 function pickCard(el){document.querySelectorAll('.cl-card').forEach(c=>c.classList.remove('on'));el.classList.add('on')}
 
-// ── TESTIMONIALS ──
+// TESTIMONIALS
 const allT=[
   {q:'"I\'d been putting off pottery for years because of the cost. Hobbi got me in for half price. I haven\'t missed a week since."',nm:'Zara H.',dt:'Student · London'},
   {q:'"Our Tuesday evenings were always half empty. Since listing on Hobbi they\'re consistently full — exactly the crowd we wanted."',nm:'Marco P.',dt:'Owner · Studio Forma'},
@@ -816,28 +598,12 @@ const allT=[
   {q:'"Found a floristry class on a whim. Now I bring flowers home every week. Changed how I think about my free time."',nm:'Tom R.',dt:'Student · Edinburgh'},
 ]
 let tp=0
-function renderT(){
-  document.getElementById('tg').innerHTML=allT.slice(tp*3,tp*3+3).map(t=>`<div class="tc"><div class="stars">${'<div class="star"></div>'.repeat(5)}</div><p class="tq">${t.q}</p><div class="thr"></div><div class="tnm">${t.nm}</div><div class="tdt">${t.dt}</div></div>`).join('')
-  document.querySelectorAll('.tp').forEach((p,i)=>p.classList.toggle('on',i===tp))
-}
-function nextTest(){tp=(tp+1)%2;renderT()}
-function prevTest(){tp=(tp+1)%2;renderT()}
-function goTest(n){tp=n;renderT()}
+function renderT(){document.getElementById('tg').innerHTML=allT.slice(tp*3,tp*3+3).map(t=>`<div class="tc"><div class="stars">${'<div class="star"></div>'.repeat(5)}</div><p class="tq">${t.q}</p><div class="thr"></div><div class="tnm">${t.nm}</div><div class="tdt">${t.dt}</div></div>`).join('');document.querySelectorAll('.tp').forEach((p,i)=>p.classList.toggle('on',i===tp))}
+function nextTest(){tp=(tp+1)%2;renderT()}function prevTest(){tp=(tp+1)%2;renderT()}function goTest(n){tp=n;renderT()}
 renderT()
 
-// ── CTA ──
-function ctaSw(el,type){
-  document.querySelectorAll('.ctb').forEach(b=>b.classList.remove('on'));el.classList.add('on')
-  if(type==='studio'){
-    document.getElementById('ctaCtx').innerHTML='List your studio for free. Fill your slots,<br>grow your community. Zero commission to start.'
-    document.getElementById('ctaBtn').textContent='List my studio'
-    document.getElementById('ctaEmail').placeholder='Your studio email'
-  } else {
-    document.getElementById('ctaCtx').innerHTML='Join thousands of young people already signed up.<br>Be first in your city when we launch.'
-    document.getElementById('ctaBtn').textContent='Get early access'
-    document.getElementById('ctaEmail').placeholder='Your email address'
-  }
-}
+// CTA
+function ctaSw(el,type){document.querySelectorAll('.ctb').forEach(b=>b.classList.remove('on'));el.classList.add('on');if(type==='studio'){document.getElementById('ctaCtx').innerHTML='List your studio for free. Fill your slots,<br>grow your community. Zero commission to start.';document.getElementById('ctaBtn').textContent='List my studio';document.getElementById('ctaEmail').placeholder='Your studio email'}else{document.getElementById('ctaCtx').innerHTML='Join thousands of young people already signed up.<br>Be first in your city when we launch.';document.getElementById('ctaBtn').textContent='Get early access';document.getElementById('ctaEmail').placeholder='Your email address'}}
 </script>
 </body>
 </html>
