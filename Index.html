@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gather — Moments worth keeping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=VT323&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#14110A;--black-2:#1E1A11;--ink:#221C12;
+  --cream:#F2EBDB;--cream-2:#E6DCC6;--cream-dim:#9C9079;
+  --warm:#F4E4C6;--honey:#D98A3D;--honey-deep:#B86B26;--amber-glow:#E8A858;
+  --r-sm:4px;--r-md:12px;--r-lg:18px;
+  --e1:cubic-bezier(0.22,1,0.36,1);--e2:cubic-bezier(0.65,0,0.35,1);
+  --maxw:1280px;
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{font-family:'Inter Tight',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+.grain{position:fixed;inset:-50%;z-index:9000;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grainShift .5s steps(2) infinite}
+@keyframes grainShift{0%{transform:translate(0,0)}50%{transform:translate(-1%,1%)}100%{transform:translate(1%,-1%)}}
+
+
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--honey);z-index:300;width:0}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2.5rem;transition:padding .4s var(--e1),background .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(20,17,10,.72);backdrop-filter:blur(18px);border-color:rgba(242,235,219,.08);padding:1rem 2.5rem}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:400;letter-spacing:-.01em;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:.55rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--honey);box-shadow:0 0 8px rgba(217,138,61,.6);animation:pulse 2.4s var(--e2) infinite}
+@keyframes pulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
+.nav-links{display:flex;gap:.5rem;list-style:none;align-items:center}
+.nav-link{position:relative;font-size:.8rem;font-weight:500;color:var(--cream-dim);text-decoration:none;padding:.5rem .9rem;transition:color .3s}
+.nav-link::after{content:'';position:absolute;left:.9rem;right:.9rem;bottom:.3rem;height:1px;background:var(--cream);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--e1)}
+.nav-link:hover{color:var(--cream)}.nav-link:hover::after{transform:scaleX(1)}
+.nav-pill{margin-left:.75rem;background:var(--cream);color:var(--black);padding:.6rem 1.4rem;border-radius:100px;font-size:.8rem;font-weight:500;text-decoration:none;transition:background .3s,transform .3s var(--e1)}
+.nav-pill:hover{background:var(--honey);color:var(--black);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none}
+.hamburger span{display:block;width:26px;height:1.5px;background:var(--cream);transition:all .35s var(--e1)}
+.hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:flex;position:fixed;inset:0;background:var(--black);z-index:190;flex-direction:column;justify-content:center;padding:0 2rem;gap:.5rem;clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--e1)}
+.mobile-menu.open{clip-path:inset(0 0 0% 0)}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:clamp(2.5rem,9vw,4rem);font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:-.02em;padding:.4rem 0;opacity:.85;transition:opacity .3s,padding-left .3s var(--e1)}
+.mobile-menu a:hover{opacity:1;padding-left:1rem;color:var(--honey)}
+
+.tape{position:relative;overflow:hidden;background:#1a140c;border-radius:var(--r-md)}
+.tape video,.tape .feed{display:block;width:100%;height:100%;object-fit:cover}
+.feed{position:absolute;inset:0}
+.feed-1{background:linear-gradient(160deg,#c79248,#5a3c1a 75%)}
+.feed-2{background:linear-gradient(160deg,#b88a52,#4a3416 75%)}
+.feed-3{background:linear-gradient(160deg,#cf8a4a,#6a3c1a 75%)}
+.feed-4{background:linear-gradient(160deg,#a8884e,#443418 75%)}
+.feed-5{background:linear-gradient(160deg,#c99a52,#5a4420 75%)}
+.feed-6{background:linear-gradient(160deg,#bb7a42,#4a2c14 75%)}
+.feed::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 42%,rgba(40,20,5,.5) 100%)}
+.feed::after{content:'';position:absolute;inset:0;mix-blend-mode:overlay;opacity:.3;background:linear-gradient(180deg,rgba(255,210,140,.25),transparent 40%)}
+.tape-overlay{position:absolute;inset:0;z-index:3;pointer-events:none;font-family:'VT323',monospace;color:rgba(255,245,225,.9);text-shadow:0 0 4px rgba(40,20,5,.5)}
+.tape-scan{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.3;background:repeating-linear-gradient(to bottom,transparent 0,transparent 2px,rgba(40,20,5,.18) 3px,transparent 4px)}
+.tape-rec{position:absolute;top:.8rem;left:.9rem;display:flex;align-items:center;gap:.4rem;font-size:1rem;letter-spacing:.1em}
+.tape-rec .d{width:8px;height:8px;border-radius:50%;background:var(--amber-glow);box-shadow:0 0 6px rgba(232,168,88,.7);animation:pulse 2s var(--e2) infinite}
+.tape-time{position:absolute;bottom:.7rem;right:.9rem;font-size:1rem;letter-spacing:.05em;text-align:right;line-height:1.2}
+.tape-loc{position:absolute;bottom:.7rem;left:.9rem;font-size:.95rem;letter-spacing:.04em;max-width:62%}
+.tape-track{position:absolute;left:0;right:0;height:16px;z-index:2;pointer-events:none;background:rgba(255,225,170,.06);mix-blend-mode:screen;opacity:0;filter:blur(1px)}
+
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.9rem;border-radius:100px;font-size:.85rem;font-weight:500;text-decoration:none;border:none;transition:transform .4s var(--e1),background .4s,color .4s;position:relative;overflow:hidden}
+.btn span{position:relative;z-index:1}
+.btn-arrow span::after{content:'→';display:inline-block;margin-left:.5rem;transition:transform .4s var(--e1)}
+.btn-arrow:hover span::after{transform:translateX(4px)}
+.btn-cream{background:var(--cream);color:var(--black)}.btn-cream:hover{transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid rgba(242,235,219,.22)}.btn-ghost:hover{border-color:rgba(242,235,219,.55)}
+.btn-honey{background:var(--honey);color:var(--black)}.btn-honey:hover{background:var(--honey-deep);transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:var(--cream);border:1px solid rgba(242,235,219,.15)}.btn-dark:hover{background:var(--honey);color:var(--black);border-color:var(--honey);transform:translateY(-2px)}
+
+.hero{min-height:100svh;position:relative;display:flex;align-items:flex-end;padding:0 2.5rem 3.5rem;padding-top:9rem;overflow:hidden}
+.hero-feed{position:absolute;inset:0;z-index:0}
+.hero-feed .feed{filter:saturate(.92) contrast(1.02)}
+.hero-feed::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,10,.94),rgba(20,17,10,.45) 50%,rgba(20,17,10,.68))}
+.hero-content{position:relative;z-index:4;width:100%;max-width:var(--maxw);margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:.7rem;font-family:'VT323',monospace;font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-glow);margin-bottom:2rem}
+.hero-tag::before{content:'';width:30px;height:1px;background:var(--amber-glow)}
+.hero-h1{font-family:'Fraunces',serif;font-size:clamp(3.2rem,9vw,9rem);font-weight:300;line-height:.9;letter-spacing:-.035em;color:var(--cream);margin-bottom:3rem}
+.hero-h1 .line{display:block;overflow:hidden}
+.hero-h1 .line>span{display:inline-block}
+.hero-h1 em{font-style:italic;color:var(--warm)}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;flex-wrap:wrap}
+.hero-sub{font-size:1.05rem;line-height:1.65;color:rgba(242,235,219,.62);max-width:44ch}
+.hero-sub strong{color:var(--cream);font-weight:500}
+.hero-actions{display:flex;gap:.75rem;flex-shrink:0;flex-wrap:wrap}
+
+.strip{background:var(--honey);padding:1rem 0;overflow:hidden;white-space:nowrap}
+.strip-inner{display:inline-flex;align-items:center}
+.strip-item{font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;font-weight:300;color:var(--black);padding:0 1.6rem}
+.strip-dot{width:5px;height:5px;border-radius:50%;background:rgba(20,17,10,.35)}
+
+.section{padding:9rem 2.5rem}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.label{font-family:'VT323',monospace;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;color:var(--honey);display:inline-flex;align-items:center;gap:.7rem;margin-bottom:1.75rem}
+.label::before{content:'';width:24px;height:1px;background:currentColor}
+.h2{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5vw,4.5rem);font-weight:300;line-height:1.02;letter-spacing:-.03em;color:var(--cream)}
+.h2 em{font-style:italic;color:var(--warm)}
+
+.thesis-section{background:var(--cream);color:var(--ink);padding:11rem 2.5rem}
+.thesis-inner{max-width:1000px;margin:0 auto}
+.thesis-section .label{color:var(--honey-deep)}
+.thesis-quote{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,4.2rem);font-weight:300;line-height:1.12;letter-spacing:-.03em;color:var(--ink)}
+.thesis-quote .word{display:inline-block;opacity:.16;transition:opacity .5s var(--e1)}
+.thesis-quote .word.lit{opacity:1}
+.thesis-quote em{font-style:italic;color:var(--honey-deep)}
+.thesis-meta{font-family:'VT323',monospace;font-size:1.1rem;color:#8a7d63;margin-top:2.5rem;max-width:54ch}
+.thesis-cols{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:6rem;padding-top:4rem;border-top:1px solid rgba(34,28,18,.12)}
+.thesis-col-num{font-family:'VT323',monospace;font-size:1.05rem;color:var(--honey-deep);margin-bottom:1rem;display:block}
+.thesis-col-title{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:400;margin-bottom:1rem;color:var(--ink)}
+.thesis-col-body{font-size:.95rem;line-height:1.75;color:#5c5341;max-width:46ch}
+
+.reel{background:var(--black);padding:8rem 2.5rem}
+.reel-head{max-width:var(--maxw);margin:0 auto 3.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.reel-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;grid-auto-rows:130px}
+.r1{grid-column:1/7;grid-row:1/4}
+.r2{grid-column:7/13;grid-row:1/3}
+.r3{grid-column:7/10;grid-row:3/5}
+.r4{grid-column:10/13;grid-row:3/5}
+.r5{grid-column:1/5;grid-row:4/6}
+.r6{grid-column:5/13;grid-row:5/7}
+
+.how-section{background:var(--black-2)}
+.how-grid{display:grid;grid-template-columns:5fr 7fr;gap:5rem;align-items:start}
+.how-sticky{position:sticky;top:9rem}
+.how-intro-body{font-size:.95rem;line-height:1.75;color:var(--cream-dim);max-width:34ch;margin-top:1.5rem}
+.step-item{position:relative;display:grid;grid-template-columns:auto 1fr;gap:2rem;padding:3rem 0;border-top:1px solid rgba(242,235,219,.1)}
+.step-item:last-child{border-bottom:1px solid rgba(242,235,219,.1)}
+.step-num-big{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:300;line-height:.8;color:var(--cream-dim);transition:color .4s var(--e1)}
+.step-item:hover .step-num-big{color:var(--honey)}
+.step-ttl{font-size:1.15rem;font-weight:500;color:var(--cream);margin-bottom:.75rem}
+.step-bd{font-size:.92rem;line-height:1.75;color:var(--cream-dim);max-width:52ch}
+.step-tag{display:inline-block;margin-top:1.25rem;font-family:'VT323',monospace;font-size:.95rem;letter-spacing:.05em;text-transform:uppercase;color:var(--honey);padding:.2rem .7rem;border:1px solid rgba(217,138,61,.4);border-radius:100px}
+
+.stats-section{background:var(--honey);padding:7rem 2.5rem;overflow:hidden}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.stat-block{position:relative}
+.stat-block:not(:last-child)::after{content:'';position:absolute;right:-1rem;top:10%;bottom:10%;width:1px;background:rgba(20,17,10,.18)}
+.stat-number{font-family:'Fraunces',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:300;color:var(--black);line-height:.9;margin-bottom:.75rem;letter-spacing:-.02em}
+.stat-desc{font-family:'VT323',monospace;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:rgba(20,17,10,.7);max-width:24ch;line-height:1.4}
+
+.audiences{display:grid;grid-template-columns:1fr 1fr}
+.audience-panel{padding:8rem 4rem;position:relative;overflow:hidden}
+.audience-panel.brands{background:var(--black)}
+.audience-panel.spaces{background:var(--cream);color:var(--ink)}
+.aud-label{font-family:'VT323',monospace;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;display:inline-flex;align-items:center;gap:.7rem;color:var(--honey)}
+.spaces .aud-label{color:var(--honey-deep)}
+.aud-label::before{content:'';width:24px;height:1px;background:currentColor}
+.aud-h2{font-family:'Fraunces',serif;font-size:clamp(2rem,3.8vw,3.4rem);font-weight:300;line-height:1.05;letter-spacing:-.03em;margin-bottom:1.75rem}
+.brands .aud-h2{color:var(--cream)}.spaces .aud-h2{color:var(--ink)}
+.aud-body{font-size:.95rem;line-height:1.7;margin-bottom:2.5rem;max-width:42ch}
+.brands .aud-body{color:var(--cream-dim)}.spaces .aud-body{color:#5c5341}
+.aud-list{list-style:none;margin-bottom:3rem}
+.aud-list li{font-size:.92rem;padding:1rem 0;border-bottom:1px solid;display:flex;align-items:flex-start;gap:1rem;line-height:1.5;transition:padding-left .35s var(--e1)}
+.aud-list li:hover{padding-left:.75rem}
+.brands .aud-list li{border-color:rgba(242,235,219,.1);color:rgba(242,235,219,.72)}
+.spaces .aud-list li{border-color:rgba(34,28,18,.1);color:#5c5341}
+.aud-list li i{font-style:normal;font-family:'VT323',monospace;font-size:1rem;flex-shrink:0;padding-top:.1rem;color:var(--honey)}
+.spaces .aud-list li i{color:var(--honey-deep)}
+
+.events-card{background:rgba(242,235,219,.03);border:1px solid rgba(242,235,219,.08);border-radius:var(--r-md);padding:1.6rem;margin-top:2.5rem}
+.events-card-head{font-family:'VT323',monospace;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:1.25rem}
+.event-row{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid rgba(242,235,219,.06);transition:padding-left .35s var(--e1)}
+.event-row:hover{padding-left:.5rem}
+.event-row:last-child{border-bottom:none;padding-bottom:0}
+.event-name-txt{font-size:.88rem;font-weight:500;color:rgba(242,235,219,.88);margin-bottom:.25rem}
+.event-detail{font-family:'VT323',monospace;font-size:.95rem;color:var(--cream-dim)}
+.event-badge{font-family:'VT323',monospace;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .7rem;border-radius:100px;background:rgba(217,138,61,.18);color:var(--amber-glow)}
+
+.spaces-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2.5rem}
+.space-tile{background:var(--warm);border:1px solid rgba(34,28,18,.1);border-radius:var(--r-md);padding:1.4rem 1.5rem;transition:transform .4s var(--e1),background .4s}
+.space-tile:hover{background:var(--honey);transform:translateY(-3px)}
+.space-tile:hover .space-tile-type{color:rgba(20,17,10,.65)}
+.space-tile-name{font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:.25rem}
+.space-tile-type{font-family:'VT323',monospace;font-size:.95rem;color:#8a7d63;transition:color .4s}
+
+.testimonials{background:var(--black);padding:9rem 2.5rem}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+.testi-card{background:var(--black-2);border:1px solid rgba(242,235,219,.07);border-radius:var(--r-lg);padding:2.25rem;display:flex;flex-direction:column;justify-content:space-between;gap:2.5rem;transition:transform .5s var(--e1)}
+.testi-card:hover{transform:translateY(-4px)}
+.testi-card:nth-child(2){background:var(--honey);border-color:var(--honey)}
+.testi-card:nth-child(2) .testi-quote{color:var(--black)}
+.testi-card:nth-child(2) .testi-name{color:var(--black)}
+.testi-card:nth-child(2) .testi-role{color:rgba(20,17,10,.6)}
+.testi-mark{font-family:'Fraunces',serif;font-size:3rem;line-height:.5;color:var(--honey);font-style:italic;height:1.5rem}
+.testi-card:nth-child(2) .testi-mark{color:var(--black)}
+.testi-quote{font-family:'Fraunces',serif;font-size:1.25rem;font-style:italic;font-weight:300;line-height:1.5;color:var(--cream)}
+.testi-person{display:flex;align-items:center;gap:.85rem}
+.testi-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'VT323',monospace;font-size:1rem;flex-shrink:0}
+.testi-name{font-size:.84rem;font-weight:500;color:var(--cream)}
+.testi-role{font-family:'VT323',monospace;font-size:.9rem;color:var(--cream-dim)}
+
+.manifesto{background:var(--cream);color:var(--ink);padding:11rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.manifesto::before{content:'\201C';position:absolute;top:2rem;left:50%;transform:translateX(-50%);font-family:'Fraunces',serif;font-size:18rem;color:rgba(217,138,61,.1);line-height:1;pointer-events:none}
+.manifesto-inner{max-width:850px;margin:0 auto;position:relative}
+.manifesto .label{color:var(--honey-deep);justify-content:center;display:flex}
+.manifesto-text{font-family:'Fraunces',serif;font-size:clamp(2rem,4.2vw,3.6rem);font-weight:300;line-height:1.25;color:var(--ink);margin-bottom:2.5rem;letter-spacing:-.02em}
+.manifesto-text em{font-style:italic;color:var(--honey-deep)}
+.manifesto-sub{font-size:.95rem;line-height:1.75;color:#5c5341;max-width:52ch;margin:0 auto}
+
+.cta-section{background:var(--black);padding:11rem 2.5rem 9rem;position:relative;overflow:hidden}
+.cta-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(217,138,61,.16),transparent 65%);top:-200px;right:-100px;pointer-events:none}
+.cta-inner{max-width:var(--maxw);margin:0 auto;position:relative}
+.cta-headline{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5.5vw,5rem);font-weight:300;color:var(--cream);line-height:1.02;letter-spacing:-.03em;margin-bottom:4rem;max-width:15ch}
+.cta-headline em{font-style:italic;color:var(--warm)}
+.cta-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:5rem}
+.cta-card{border-radius:var(--r-lg);padding:3rem;border:1px solid rgba(242,235,219,.09);background:var(--black-2);transition:transform .5s var(--e1)}
+.cta-card:hover{transform:translateY(-4px)}
+.cta-card.spaces-cta{background:rgba(217,138,61,.1);border-color:rgba(217,138,61,.25)}
+.cta-card-eyebrow{font-family:'VT323',monospace;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.5rem;display:block;color:var(--honey)}
+.cta-card-title{font-family:'Fraunces',serif;font-size:clamp(1.6rem,2.5vw,2.3rem);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:1.1rem}
+.cta-card-body{font-size:.9rem;line-height:1.7;color:var(--cream-dim);max-width:42ch}
+
+.form-wrap{border-top:1px solid rgba(242,235,219,.08);padding-top:5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:760px;margin-top:2.5rem}
+.field{display:flex;flex-direction:column;gap:.5rem}
+.field.full{grid-column:1/3}
+.field label{font-family:'VT323',monospace;font-size:.95rem;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-dim)}
+.field input,.field select,.field textarea{background:rgba(242,235,219,.04);border:1px solid rgba(242,235,219,.12);border-radius:var(--r-sm);padding:.85rem 1rem;font-family:inherit;font-size:.9rem;color:var(--cream);transition:border-color .3s,background .3s}
+.field input::placeholder,.field textarea::placeholder{color:rgba(242,235,219,.25)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--honey);background:rgba(242,235,219,.06)}
+.field select option{background:var(--black-2);color:var(--cream)}
+.field textarea{resize:vertical;min-height:90px}
+.form-submit{grid-column:1/3;display:flex;align-items:center;gap:1.25rem;margin-top:.5rem}
+.form-note{font-family:'VT323',monospace;font-size:.95rem;color:var(--cream-dim)}
+.form-success{grid-column:1/3;background:rgba(217,138,61,.12);border:1px solid var(--honey);border-radius:var(--r-md);padding:1.25rem 1.5rem;color:var(--amber-glow);font-size:.9rem;display:none}
+.form-success.show{display:block}
+
+footer{background:var(--black);padding:5rem 2.5rem 2rem;border-top:1px solid rgba(242,235,219,.07)}
+.footer-top{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;padding-bottom:4rem;border-bottom:1px solid rgba(242,235,219,.07)}
+.footer-logo{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:400;color:var(--cream);margin-bottom:1rem;display:flex;align-items:center;gap:.55rem}
+.footer-desc{font-size:.9rem;line-height:1.7;color:var(--cream-dim);max-width:30ch}
+.footer-col-head{font-family:'VT323',monospace;font-size:.95rem;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:1.4rem}
+.footer-nav{list-style:none}.footer-nav li{margin-bottom:.85rem}
+.footer-nav a{font-size:.88rem;color:rgba(242,235,219,.5);text-decoration:none;transition:color .3s,padding-left .3s var(--e1)}
+.footer-nav a:hover{color:var(--cream);padding-left:.3rem}
+.footer-bottom{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-family:'VT323',monospace;font-size:.95rem;color:var(--cream-dim)}
+
+.rv{opacity:0;transform:translateY(36px);transition:opacity 1s var(--e1),transform 1s var(--e1)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+
+@media(max-width:1000px){
+  .how-grid{grid-template-columns:1fr;gap:3rem}.how-sticky{position:static}
+  .thesis-cols{grid-template-columns:1fr;gap:2.5rem}
+  .audiences{grid-template-columns:1fr}.testimonials-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:3rem 2rem}.stat-block:nth-child(2)::after{display:none}
+  .cta-cards{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}
+  .reel-grid{grid-auto-rows:100px}
+}
+@media(max-width:680px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .hero{padding:0 1.5rem 2.5rem;padding-top:7rem}
+  .section,.thesis-section,.manifesto,.cta-section,.testimonials,.stats-section,.reel{padding:5.5rem 1.5rem}
+  .audience-panel{padding:5rem 1.5rem}
+  .stat-block:nth-child(odd)::after{display:none}
+  .footer-top{grid-template-columns:1fr;gap:2.5rem}.footer-bottom{flex-direction:column;gap:.5rem;text-align:center}
+  .form-grid{grid-template-columns:1fr}.field.full,.form-submit,.form-success{grid-column:1/2}
+  .form-submit{flex-direction:column;align-items:flex-start;gap:1rem}
+  .reel-grid{display:flex;flex-direction:column}.reel-grid>div{height:200px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="progress" id="progress"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a><a href="#reel">Moments</a><a href="#brands">For brands</a><a href="#spaces">For spaces</a><a href="#contact">Get in touch</a>
+</div>
+
+<nav class="nav" id="navbar">
+  <a href="#" class="nav-logo"><span class="dot"></span>Gather</a>
+  <ul class="nav-links">
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#reel" class="nav-link">Moments</a></li>
+    <li><a href="#brands" class="nav-link">For brands</a></li>
+    <li><a href="#spaces" class="nav-link">For spaces</a></li>
+    <li><a href="#contact" class="nav-pill">Get in touch</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-feed" id="heroFeed">
+    <div class="feed feed-1"></div>
+    <div class="tape-scan"></div>
+    <div class="tape-overlay">
+      <div class="tape-rec"><span class="d"></span>REC</div>
+      <div class="tape-loc">CERAMICS NIGHT · SHOREDITCH</div>
+      <div class="tape-time" id="heroTime">SP · 0:00:00<br>SAT · GOLDEN HOUR</div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">● recording real life — since 2024</div>
+    <h1 class="hero-h1" id="heroH1">
+      <span class="line"><span>Moments</span></span>
+      <span class="line"><span>worth <em>keeping.</em></span></span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">Content creators promised authenticity. They delivered performance. <strong>Gather puts your brand inside the moments people actually treasure</strong> — the warm, unpolished, real ones they tell their friends about.</p>
+      <div class="hero-actions">
+        <a href="#brands" class="btn btn-cream btn-arrow"><span>For brands</span></a>
+        <a href="#spaces" class="btn btn-ghost"><span>For spaces</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip"><div class="strip-inner" id="strip"></div></div>
+
+<section class="thesis-section" id="about">
+  <div class="thesis-inner">
+    <div class="label rv">the problem with reach</div>
+    <p class="thesis-quote" id="thesisQuote">People are tired of being marketed to. What if we simply gathered them somewhere <em>real</em> — and let your brand belong there?</p>
+    <p class="thesis-meta rv">Communities are the warmest, most undervalued media channel in the world. We bring brands into the room.</p>
+    <div class="thesis-cols">
+      <div class="rv"><span class="thesis-col-num">01 — the creator problem</span><h3 class="thesis-col-title">Performance, not connection</h3><p class="thesis-col-body">Influencer marketing promised access to real communities. Instead it built a performance economy — everything lit, staged and optimised for clicks. People feel it, and they scroll straight past.</p></div>
+      <div class="rv rv-d1"><span class="thesis-col-num">02 — the Gather way</span><h3 class="thesis-col-title">Real rooms, real belonging</h3><p class="thesis-col-body">We bring brands into real hobby communities — the places people return to every week because they feel they belong. Your brand becomes part of a good memory, not an interruption to one.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reel" id="reel">
+  <div class="reel-head">
+    <div>
+      <div class="label rv">the moments</div>
+      <h2 class="h2 rv">Good times,<br><em>caught warm</em></h2>
+    </div>
+    <p class="rv" style="font-family:'VT323',monospace;font-size:1.1rem;color:var(--cream-dim);max-width:32ch">No models. No scripts. Just real people, real spaces, and a camera that happened to be rolling.</p>
+  </div>
+  <div class="reel-grid" id="reelGrid">
+    <div class="tape r1" data-play data-loc="CERAMICS NIGHT · SHOREDITCH" data-date="SAT EVE"><div class="feed feed-1"></div></div>
+    <div class="tape r2" data-play data-loc="RUN CLUB · CLAPHAM COMMON" data-date="SUN AM"><div class="feed feed-2"></div></div>
+    <div class="tape r3" data-play data-loc="FLORISTRY · NOTTING HILL" data-date="THU PM"><div class="feed feed-3"></div></div>
+    <div class="tape r4" data-play data-loc="SUPPER CLUB · HACKNEY" data-date="FRI EVE"><div class="feed feed-4"></div></div>
+    <div class="tape r5" data-play data-loc="CLIMBING · PECKHAM" data-date="TUE PM"><div class="feed feed-5"></div></div>
+    <div class="tape r6" data-play data-loc="LIFE DRAWING · DALSTON" data-date="WED EVE"><div class="feed feed-6"></div></div>
+  </div>
+</section>
+
+<section class="section how-section" id="how">
+  <div class="wrap how-grid">
+    <div class="how-sticky">
+      <div class="label rv">the process</div>
+      <h2 class="h2 rv">How Gather<br><em>works</em></h2>
+      <p class="how-intro-body rv rv-d1">Three steps from brief to belonging. We carry the complexity so you can focus on the moment.</p>
+    </div>
+    <div class="steps-list">
+      <div class="step-item rv"><span class="step-num-big">01</span><div><h3 class="step-ttl">We find where your people already gather</h3><p class="step-bd">Tell us your brand, your customer, your goal. We find the hobby communities — by city, interest and demographic — where your audience already spends their warmest hours. Not who they follow. Where they feel at home.</p><span class="step-tag">discovery + matching</span></div></div>
+      <div class="step-item rv rv-d1"><span class="step-num-big">02</span><div><h3 class="step-ttl">We shape the moment with the space</h3><p class="step-bd">We work hand in hand with the space owner to design something that feels native — never bolted on. A ceramics evening where the drinks happen to be yours. A run-club morning where your kit comes along for the ride. Always warm, never forced.</p><span class="step-tag">creative + production</span></div></div>
+      <div class="step-item rv rv-d2"><span class="step-num-big">03</span><div><h3 class="step-ttl">We capture it, and measure what stayed</h3><p class="step-bd">Real people, real reactions, real warmth. We gather genuine footage from the people who were there, then measure brand recall, sentiment and referral — and hand you everything you need to show it mattered.</p><span class="step-tag">footage + reporting</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="wrap stats-grid">
+    <div class="stat-block rv"><div class="stat-number" data-count="4" data-suffix="×">0×</div><div class="stat-desc">higher recall vs influencer content</div></div>
+    <div class="stat-block rv rv-d1"><div class="stat-number" data-count="200" data-suffix="+">0+</div><div class="stat-desc">hobby spaces in the network</div></div>
+    <div class="stat-block rv rv-d2"><div class="stat-number" data-count="92" data-suffix="%">0%</div><div class="stat-desc">of attendees recommend the brand</div></div>
+    <div class="stat-block rv rv-d3"><div class="stat-number" data-count="12" data-suffix="">0</div><div class="stat-desc">cities across the UK</div></div>
+  </div>
+</section>
+
+<div class="audiences">
+  <div class="audience-panel brands" id="brands">
+    <span class="aud-label rv">for brands</span>
+    <h2 class="aud-h2 rv">Stop renting attention.<br>Start earning belonging.</h2>
+    <p class="aud-body rv">Your next customer isn't waiting to be targeted. They're in a pottery studio on a Tuesday evening, happy. We bring you into that room — gently, and for real.</p>
+    <ul class="aud-list rv"><li><i>01</i>Warm events inside trusted hobby spaces</li><li><i>02</i>Genuine footage from real participants — no casting</li><li><i>03</i>Audience data and post-event recall reporting</li><li><i>04</i>Lasting community partnerships, not one-offs</li><li><i>05</i>Nationwide network across 12 UK cities</li></ul>
+    <a href="#contact" class="btn btn-honey btn-arrow rv"><span>Book a brand call</span></a>
+    <div class="events-card rv"><div class="events-card-head">recent moments</div>
+      <div class="event-row"><div><div class="event-name-txt">Oatly × East London Pottery</div><div class="event-detail">24 there · Shoreditch · Mar 2025</div></div><span class="event-badge">F&B</span></div>
+      <div class="event-row"><div><div class="event-name-txt">Lululemon × South London Run Club</div><div class="event-detail">60 there · Clapham · Feb 2025</div></div><span class="event-badge">Apparel</span></div>
+      <div class="event-row"><div><div class="event-name-txt">Aesop × The Floristry Studio</div><div class="event-detail">18 there · Notting Hill · Jan 2025</div></div><span class="event-badge">Beauty</span></div>
+    </div>
+  </div>
+  <div class="audience-panel spaces" id="spaces">
+    <span class="aud-label rv">for spaces</span>
+    <h2 class="aud-h2 rv">Turn your community<br>into something more.</h2>
+    <p class="aud-body rv">You've built something real — a room people come back to. Gather brings warm, considered brands into that room, on your terms. You approve every one. We handle everything else.</p>
+    <ul class="aud-list rv"><li><i>01</i>Paid per event — no revenue share, no hidden fees</li><li><i>02</i>You approve every brand before they arrive</li><li><i>03</i>We handle all liaison, logistics and footage</li><li><i>04</i>Moments designed to deepen your community</li><li><i>05</i>No minimum size or commitment to join</li></ul>
+    <a href="#contact" class="btn btn-dark btn-arrow rv"><span>Apply to join</span></a>
+    <div class="spaces-grid rv">
+      <div class="space-tile"><div class="space-tile-name">Ceramics & craft</div><div class="space-tile-type">studios, workshops, makers</div></div>
+      <div class="space-tile"><div class="space-tile-name">Wellness & yoga</div><div class="space-tile-type">studios, retreats, breathwork</div></div>
+      <div class="space-tile"><div class="space-tile-name">Run & cycle clubs</div><div class="space-tile-type">community sport, social fitness</div></div>
+      <div class="space-tile"><div class="space-tile-name">Cookery & food</div><div class="space-tile-type">schools, supper clubs, tastings</div></div>
+      <div class="space-tile"><div class="space-tile-name">Climbing & sport</div><div class="space-tile-type">walls, gyms, outdoor groups</div></div>
+      <div class="space-tile"><div class="space-tile-name">Art & creative</div><div class="space-tile-type">life drawing, print, painting</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="testimonials">
+  <div class="wrap">
+    <div class="label rv">what people say</div>
+    <h2 class="h2 rv">From the people<br>who were <em>there</em></h2>
+    <div class="testimonials-grid">
+      <div class="testi-card rv"><div><div class="testi-mark">"</div><p class="testi-quote">It didn't feel like a brand event at all. The ceramics were brilliant, the drinks were cold, and I've been talking about Oatly ever since. That's the point, isn't it?</p></div><div class="testi-person"><div class="testi-avatar" style="background:rgba(217,138,61,.2);color:var(--amber-glow)">SR</div><div><div class="testi-name">Sarah R.</div><div class="testi-role">attendee · east london</div></div></div></div>
+      <div class="testi-card rv rv-d1"><div><div class="testi-mark">"</div><p class="testi-quote">Gather brought us three brand partners in six months — real brands who understood our community. The extra income let us hire our first full-time instructor.</p></div><div class="testi-person"><div class="testi-avatar" style="background:rgba(20,17,10,.2);color:var(--black)">MK</div><div><div class="testi-name">Marcus K.</div><div class="testi-role">the clay room · peckham</div></div></div></div>
+      <div class="testi-card rv rv-d2"><div><div class="testi-mark">"</div><p class="testi-quote">89% of attendees remembered the brand three weeks later. Our influencer campaigns can't come close. This is where we're putting our budget now.</p></div><div class="testi-person"><div class="testi-avatar" style="background:rgba(242,235,219,.1);color:var(--cream-dim)">JP</div><div><div class="testi-name">Jess P.</div><div class="testi-role">head of brand · consumer goods</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <div class="label rv">our belief</div>
+    <p class="manifesto-text rv">The best marketing doesn't feel like marketing. It feels like a <em>Tuesday evening</em> you'll tell your friends about.</p>
+    <p class="manifesto-sub rv rv-d1">Communities are the warmest, most powerful and most undervalued media channel in the world. Gather was built to honour that — for brands, and for the spaces that make belonging happen.</p>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <h2 class="cta-headline rv">Let's gather your people <em>somewhere real.</em></h2>
+    <div class="cta-cards">
+      <div class="cta-card rv"><span class="cta-card-eyebrow">▶ for brands</span><h3 class="cta-card-title">Let's build your first moment</h3><p class="cta-card-body">Tell us about your brand, your customer and your goal. We'll find which communities, spaces and cities your audience belongs to — and shape something worth remembering.</p></div>
+      <div class="cta-card spaces-cta rv rv-d1"><span class="cta-card-eyebrow">▶ for spaces</span><h3 class="cta-card-title">Join the Gather network</h3><p class="cta-card-body">Run a hobby space with a genuine community? We'd love to hear from you. No minimum size. No minimum commitment. Just a real space and real people who show up.</p></div>
+    </div>
+    <div class="form-wrap rv">
+      <div class="label">get in touch</div>
+      <h3 class="h2" style="font-size:clamp(1.8rem,3vw,2.6rem)">Tell us about you</h3>
+      <div class="form-grid" id="contactForm">
+        <div class="field"><label>Name</label><input type="text" id="fName" placeholder="your name"></div>
+        <div class="field"><label>Email</label><input type="email" id="fEmail" placeholder="you@email.com"></div>
+        <div class="field"><label>I am a…</label><select id="fType"><option value="">select one</option><option>Brand</option><option>Hobby space</option><option>Something else</option></select></div>
+        <div class="field"><label>Organisation</label><input type="text" id="fOrg" placeholder="company or space name"></div>
+        <div class="field full"><label>What are you hoping to do?</label><textarea id="fMsg" placeholder="a sentence or two is plenty…"></textarea></div>
+        <div class="form-success" id="formSuccess">▶ Got it. We'll be in touch within two working days.</div>
+        <div class="form-submit">
+          <button class="btn btn-honey btn-arrow" id="formBtn"><span>Send message</span></button>
+          <span class="form-note">no spam. we reply to every genuine hello.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo"><span class="dot"></span>Gather</div><p class="footer-desc">Bringing brands into the real moments people treasure — through the hobby spaces they love. Community-first, always.</p></div>
+    <div><p class="footer-col-head">company</p><ul class="footer-nav"><li><a href="#about">About</a></li><li><a href="#reel">Moments</a></li><li><a href="#">Events</a></li><li><a href="#">Journal</a></li></ul></div>
+    <div><p class="footer-col-head">work with us</p><ul class="footer-nav"><li><a href="#brands">For brands</a></li><li><a href="#spaces">For spaces</a></li><li><a href="#contact">Get in touch</a></li></ul></div>
+    <div><p class="footer-col-head">follow</p><ul class="footer-nav"><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Newsletter</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Gather. all rights reserved.</span><span>made with warmth.</span></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+const items=['pottery','run clubs','cookery','climbing','yoga','life drawing','floristry','supper clubs','cycling','book clubs'];
+let sh='';for(let r=0;r<3;r++){items.forEach(t=>{sh+='<span class="strip-item">'+t+'</span><span class="strip-dot"></span>';});}
+document.getElementById('strip').innerHTML=sh;
+
+
+function pad(n){return n<10?'0'+n:n;}
+let secs=0;
+function tickTime(){secs++;const m=Math.floor((secs%3600)/60),s=secs%60;const t=document.getElementById('heroTime');if(t)t.innerHTML='SP · 0:'+pad(m)+':'+pad(s)+'<br>SAT · GOLDEN HOUR';}
+setInterval(tickTime,1000);
+
+document.querySelectorAll('.tape[data-play]').forEach(t=>{
+  const loc=t.dataset.loc,date=t.dataset.date;
+  const ov=document.createElement('div');ov.className='tape-overlay';
+  ov.innerHTML='<div class="tape-rec"><span class="d"></span>REC</div><div class="tape-loc">'+loc+'</div><div class="tape-time">SP · 0:0'+(Math.floor(Math.random()*5))+':'+pad(Math.floor(Math.random()*60))+'<br>'+date+'</div>';
+  const sc=document.createElement('div');sc.className='tape-scan';
+  const tr=document.createElement('div');tr.className='tape-track';
+  t.appendChild(sc);t.appendChild(ov);t.appendChild(tr);
+  t._track=tr;
+});
+
+const navbar=document.getElementById('navbar');
+const ham=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('active');mm.classList.toggle('open');});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('active');mm.classList.remove('open');}));
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+const tq=document.getElementById('thesisQuote');
+tq.innerHTML=tq.innerHTML.replace(/(<em>.*?<\/em>|[^\s<]+)(?=\s|$)/g,m=>'<span class="word">'+m+'</span> ');
+const words=tq.querySelectorAll('.word');
+const tio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){words.forEach((w,i)=>setTimeout(()=>w.classList.add('lit'),i*55));tio.disconnect();}});},{threshold:0.4});
+tio.observe(tq);
+
+function animateCount(el){const target=parseFloat(el.dataset.count),suffix=el.dataset.suffix||'';const dur=1400,start=performance.now();function tick(now){const p=Math.min((now-start)/dur,1);const eased=1-Math.pow(1-p,3);el.textContent=Math.round(target*eased)+suffix;if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);sio.unobserve(e.target);}}),{threshold:0.6});
+document.querySelectorAll('.stat-number').forEach(el=>sio.observe(el));
+
+const fBtn=document.getElementById('formBtn'),fSuccess=document.getElementById('formSuccess');
+fBtn.addEventListener('click',()=>{
+  const n=document.getElementById('fName').value.trim(),e=document.getElementById('fEmail').value.trim();
+  if(!n||!e||!/^\S+@\S+\.\S+$/.test(e)){[document.getElementById('fName'),document.getElementById('fEmail')].forEach(f=>{if(!f.value.trim()){f.style.borderColor='var(--honey)';setTimeout(()=>f.style.borderColor='',1500);}});return;}
+  fSuccess.classList.add('show');
+  document.querySelectorAll('#contactForm input,#contactForm select,#contactForm textarea').forEach(f=>f.value='');
+  setTimeout(()=>fSuccess.classList.remove('show'),5000);
+});
+
+window.addEventListener('load',()=>{
+  if(typeof Lenis!=='undefined'){
+    const lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+    function raf(time){lenis.raf(time);requestAnimationFrame(raf);}requestAnimationFrame(raf);
+    let lastScroll=0,vel=0;
+    const tapes=document.querySelectorAll('.tape[data-play]');
+    lenis.on('scroll',({scroll})=>{
+      navbar.classList.toggle('scrolled',scroll>50);
+      const max=document.documentElement.scrollHeight-window.innerHeight;
+      document.getElementById('progress').style.width=(scroll/max*100)+'%';
+      vel=Math.min(Math.abs(scroll-lastScroll),60);lastScroll=scroll;
+      if(vel>14){
+        tapes.forEach(t=>{
+          if(t._track&&Math.random()>0.55){
+            t._track.style.top=Math.random()*100+'%';
+            t._track.style.opacity=Math.min(vel/60,0.7);
+            clearTimeout(t._to);
+            t._to=setTimeout(()=>t._track.style.opacity='0',140);
+          }
+        });
+      }
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();lenis.scrollTo(t,{offset:-20});}}));
+    if(typeof gsap!=='undefined'&&typeof ScrollTrigger!=='undefined'){
+      gsap.registerPlugin(ScrollTrigger);
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+      const tl=gsap.timeline({defaults:{ease:'power4.out'}});
+      tl.from('.hero-tag',{y:20,opacity:0,duration:.8})
+        .from('.hero-h1 .line>span',{yPercent:110,duration:1,stagger:.1},'-=.4')
+        .from('.hero-sub',{y:24,opacity:0,duration:.9},'-=.5')
+        .from('.hero-actions',{y:24,opacity:0,duration:.9},'-=.7');
+      gsap.to('#heroFeed',{yPercent:16,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+      gsap.to('.hero-content',{yPercent:-10,opacity:.5,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+      document.querySelectorAll('.reel-grid .tape').forEach(el=>{
+        gsap.fromTo(el.querySelector('.feed'),{yPercent:12},{yPercent:-12,ease:'none',scrollTrigger:{trigger:'.reel',start:'top bottom',end:'bottom top',scrub:true}});
+        gsap.from(el,{opacity:0,scale:.95,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%'}});
+      });
+      gsap.utils.toArray('.step-num-big').forEach(el=>gsap.from(el,{x:-30,opacity:0,duration:.9,scrollTrigger:{trigger:el,start:'top 85%'}}));
+    }
+  }else{
+    window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>50));
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}}));
+  }
+});
+</script>
+</body>
+</html>
